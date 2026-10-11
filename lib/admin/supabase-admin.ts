@@ -2,10 +2,20 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 let client: SupabaseClient | null = null
 
+// Deja solo el origen (https://xxxx.supabase.co): si la URL se pegó con "/rest/v1" o una barra final, igual funciona.
+export function supabaseUrl() {
+  const raw = (process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').trim().replace(/^["']|["']$/g, '')
+  try {
+    return new URL(raw).origin
+  } catch {
+    return raw
+  }
+}
+
 // Created on first use so a missing env var returns a 503 from the route guard instead of crashing on import.
 function getClient() {
   client ??= createClient(
-    process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    supabaseUrl(),
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
     { auth: { autoRefreshToken: false, persistSession: false } },
   )
