@@ -497,3 +497,15 @@ summary,
     stroke-dashoffset: 0 !important;
   }
 }
+
+/* ── Panel de administración (/administracion) ───────────────────────────
+   Colores propios con prefijo "adm" para no chocar con los de la web pública. */
+@theme inline {
+  --color-adm-brand: oklch(0.19 0.04 255);
+  --color-adm-brand-foreground: oklch(0.98 0.01 255);
+  --color-adm-orange: oklch(0.7 0.16 52);
+  --color-adm-orange-foreground: oklch(0.18 0.03 255);
+  --color-adm-resource-panel: oklch(0.235 0.045 255);
+  --color-adm-resource-panel-header: oklch(0.275 0.05 255);
+  --color-adm-resource-panel-border: oklch(0.42 0.08 255);
+}
