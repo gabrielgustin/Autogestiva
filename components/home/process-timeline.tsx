@@ -68,24 +68,22 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
         return (
           <li key={step.title} style={{ ["--p" as string]: 0 }}>
             <Reveal delay={0.12 * index} className="h-full">
-              {/* Línea de tiempo */}
-              <div className="flex items-center">
-                <span className="relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-ink/15">
+              {/* Línea de tiempo: la bolita viaja en la punta de la línea que se llena */}
+              <div className="relative h-4">
+                <span className="absolute inset-x-0 top-1/2 h-px bg-ink/15" />
+                <span
+                  className={`absolute left-0 top-1/2 h-px ${
+                    last ? "bg-gradient-to-r from-orange-500 to-transparent" : "bg-orange-500"
+                  }`}
+                  style={{ width: "calc(0.5rem + var(--p) * (100% - 1rem))" }}
+                />
+                <span className="absolute inset-y-0 left-0 w-[calc(100%-1rem)]">
                   <span
-                    className="absolute inset-0 rounded-full bg-orange-500 transition-transform duration-300"
-                    style={{
-                      opacity: "clamp(0, calc(var(--p) * 40), 1)" as unknown as number,
-                      transform: "scale(calc(0.6 + min(var(--p) * 40, 1) * 0.4))",
-                    }}
-                  />
-                </span>
-                <span className="relative h-px flex-1 bg-ink/15">
-                  <span
-                    className={`absolute inset-y-0 left-0 w-full origin-left will-change-transform ${
-                      last ? "bg-gradient-to-r from-orange-500 to-transparent" : "bg-orange-500"
-                    }`}
-                    style={{ transform: "scaleX(var(--p))" }}
-                  />
+                    className="absolute top-0 h-4 w-4 rounded-full bg-orange-500"
+                    style={{ left: "calc(var(--p) * 100%)" }}
+                  >
+                    <span className="absolute inset-0 animate-ping rounded-full bg-orange-500/40" />
+                  </span>
                 </span>
               </div>
               <div className="pt-8 lg:pr-12">
