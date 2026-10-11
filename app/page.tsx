@@ -55,7 +55,7 @@ export default function HomePage() {
           <div className={`${container} relative pb-16 pt-10 md:pb-20 md:pt-16`}>
             <p className="animate-rise-in eyebrow inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-brand/25 bg-white/70 px-4 py-2.5 text-brand backdrop-blur max-sm:text-[10px] max-sm:tracking-[0.06em]">
               <Sparkles className="h-3.5 w-3.5" />
-              Agencia de desarrollo web & software
+              Desarrollo web y sistemas de gestión a medida
             </p>
 
             <h1 className="font-display h-mega mt-7 text-ink">
@@ -425,7 +425,7 @@ export default function HomePage() {
                 decoding="async"
               />
               <p className="mt-5 max-w-sm leading-relaxed text-white/70">
-                Agencia de desarrollo web y sistemas a medida. Transformamos la presencia digital de tu negocio con
+                Desarrollo web y sistemas de gestión a medida. Transformamos la presencia digital de tu negocio con
                 tecnología moderna.
               </p>
             </div>

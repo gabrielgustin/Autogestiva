@@ -12,7 +12,7 @@ const bricolage = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
-  title: "Autogestiva | Agencia de desarrollo web y sistemas a medida",
+  title: "Autogestiva | Desarrollo web y sistemas de gestión a medida",
   description:
     "Diseñamos y desarrollamos páginas web, tiendas online y sistemas de gestión (ERP) a medida. Soluciones digitales rápidas, seguras y pensadas para escalar tu negocio.",
   icons: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "Argentina",
   ],
   openGraph: {
-    title: "Autogestiva | Agencia de desarrollo web y sistemas a medida",
+    title: "Autogestiva | Desarrollo web y sistemas de gestión a medida",
     description:
       "Páginas web, tiendas online y sistemas de gestión a medida que escalan con tu negocio.",
     type: "website",
