@@ -470,8 +470,6 @@ export default function HomePage() {
             <p>© {new Date().getFullYear()} Autogestiva. Todos los derechos reservados.</p>
             <a
               href={contact.adminUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="transition-colors hover:text-white"
             >
               Acceso Admin

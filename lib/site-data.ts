@@ -22,7 +22,7 @@ export const contact = {
   phoneLabel: "+54 9 351 268-1910",
   phoneHref: "tel:+5493512681910",
   whatsappNumber: "5493512681910",
-  adminUrl: "https://dashboardneon.vercel.app",
+  adminUrl: "/administracion",
 }
 
 export const navServices: { icon: LucideIcon; title: string; description: string; href: string }[] = [
