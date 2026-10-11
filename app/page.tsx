@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Check, Mail, MapPin, Phone, Sparkles } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { ProjectsGallery } from "@/components/home/projects-gallery"
+import { ProcessTimeline } from "@/components/home/process-timeline"
 import { ClientsScroller } from "@/components/home/clients-scroller"
 import { DashboardMockup, SeoVisual } from "@/components/home/mockups"
 import { CtaButton, Eyebrow, Reveal, WhatsAppIcon, scrollToSection, useOnScreen } from "@/components/home/primitives"
@@ -321,57 +322,7 @@ export default function HomePage() {
               </p>
             </Reveal>
 
-            <ol className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-0">
-              {processSteps.map((step, index) => {
-                const Icon = step.icon
-                return (
-                  <li key={step.title}>
-                    <Reveal delay={0.12 * index} className="h-full">
-                      {/* Línea de tiempo */}
-                      <div className="flex items-center">
-                        <span className="relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-orange-500">
-                          <span className="absolute h-full w-full animate-ping rounded-full bg-orange-500/40" />
-                        </span>
-                        <span
-                          className={`h-px flex-1 ${
-                            index === processSteps.length - 1
-                              ? "bg-gradient-to-r from-ink/25 to-transparent"
-                              : "bg-ink/25"
-                          }`}
-                        />
-                      </div>
-                      <div className="pt-8 lg:pr-12">
-                        <div className="flex items-end justify-between">
-                          <span
-                            className="font-display text-[5.5rem] font-bold leading-[0.8] tracking-tighter text-transparent md:text-[7rem]"
-                            style={{ WebkitTextStroke: "1.5px #0057b8" }}
-                          >
-                            0{index + 1}
-                          </span>
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand text-white">
-                            <Icon className="h-6 w-6" />
-                          </span>
-                        </div>
-                        <h3 className="font-display mt-8 text-2xl font-semibold tracking-tight md:text-3xl">
-                          {step.title}
-                        </h3>
-                        <p className="mt-3 leading-relaxed text-muted-ink">{step.description}</p>
-                        <div className="mt-6 flex flex-wrap gap-2">
-                          {step.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full border border-line bg-white px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </Reveal>
-                  </li>
-                )
-              })}
-            </ol>
+            <ProcessTimeline steps={processSteps} />
           </div>
         </section>
 
