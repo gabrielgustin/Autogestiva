@@ -28,29 +28,52 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
     }
 
     const desktop = window.matchMedia("(min-width: 1024px)")
+    const target = items.map(() => 0)
+    const current = items.map(() => 0)
     let frame = 0
 
-    const update = () => {
-      frame = 0
+    // Calcula hasta dónde debería llegar cada paso según el scroll (recorrido largo = animación más calma)
+    const measure = () => {
       const vh = window.innerHeight
       if (desktop.matches) {
         const top = list.getBoundingClientRect().top
-        const g = clamp((vh * 0.82 - top) / Math.min(vh * 0.5, 480))
-        items.forEach((li, i) => li.style.setProperty("--p", clamp(g * items.length - i).toFixed(3)))
+        const g = clamp((vh * 0.85 - top) / Math.min(vh * 0.9, 900))
+        items.forEach((_, i) => (target[i] = clamp(g * items.length - i)))
       } else {
-        items.forEach((li) => {
+        items.forEach((li, i) => {
           const r = li.getBoundingClientRect()
-          const p = clamp((vh * 0.82 - r.top) / Math.min(r.height * 0.55, vh * 0.5))
-          li.style.setProperty("--p", p.toFixed(3))
+          target[i] = clamp((vh * 0.85 - r.top) / Math.min(r.height * 0.9, vh * 0.75))
         })
       }
     }
 
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update)
+    // Acerca el valor mostrado al objetivo de a poco, para que la línea "persiga" el scroll con suavidad
+    const tick = () => {
+      frame = 0
+      measure()
+      let moving = false
+      items.forEach((li, i) => {
+        const diff = target[i] - current[i]
+        if (Math.abs(diff) > 0.0005) {
+          current[i] += diff * 0.08
+          moving = true
+        } else {
+          current[i] = target[i]
+        }
+        li.style.setProperty("--p", current[i].toFixed(4))
+      })
+      if (moving) frame = requestAnimationFrame(tick)
     }
 
-    update()
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(tick)
+    }
+
+    measure()
+    items.forEach((li, i) => {
+      current[i] = target[i]
+      li.style.setProperty("--p", target[i].toFixed(4))
+    })
     window.addEventListener("scroll", schedule, { passive: true })
     window.addEventListener("resize", schedule)
     return () => {
