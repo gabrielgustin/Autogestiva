@@ -18,13 +18,9 @@ const SPEED = 40 // px por segundo
 const MIN_HALF_WIDTH = 2400 // cada mitad del bucle debe cubrir cualquier pantalla
 
 function Tile({ client }: { client: Client }) {
-  const hasLink = client.url !== "#"
-  const Tag = hasLink ? "a" : "div"
   return (
-    <Tag
-      {...(hasLink ? { href: client.url, target: "_blank", rel: "noopener noreferrer" } : {})}
+    <div
       title={client.name}
-      draggable={false}
       className="group flex h-[72px] w-36 shrink-0 items-center justify-center rounded-xl border border-ink/10 p-4 sm:h-20 sm:w-40 transition-transform duration-500 ease-out hover:-translate-y-1 hover:scale-[1.04]"
       style={{ backgroundColor: client.tile }}
     >
@@ -40,7 +36,7 @@ function Tile({ client }: { client: Client }) {
           client.name === "Gimnasio Life Gym" || client.tall ? "max-h-[52px]" : "max-h-9"
         } ${client.keepColor ? "" : "opacity-75 grayscale group-hover:opacity-100 group-hover:grayscale-0"}`}
       />
-    </Tag>
+    </div>
   )
 }
 
