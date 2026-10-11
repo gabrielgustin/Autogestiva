@@ -282,7 +282,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: "Traslados Jarabus",
+    name: "Jarabus",
     url: "https://trasladosjarabus.com.ar",
     type: "E-commerce",
     description: "Tienda online con reserva y venta de pasajes de forma autogestionable.",
@@ -315,7 +315,7 @@ export const projects: Project[] = [
     dark: true,
   },
   {
-    name: "Zonabot Espacio Tecnológico",
+    name: "Zonabot",
     url: "https://www.zonabot.com.ar",
     type: "Web institucional",
     desktop: "/images/work/zonabot.jpg",
@@ -325,7 +325,7 @@ export const projects: Project[] = [
     dark: false,
   },
   {
-    name: "Cantina Savio",
+    name: "Cantina Digital",
     url: "https://www.grupoalgarbe.com.ar",
     type: "Catálogo digital",
     desktop: "/images/work/cantina-savio-backoffice.jpg",
