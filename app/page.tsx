@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { ArrowUpRight, Check, Mail, MapPin, Phone, Sparkles } from "lucide-react"
+import { Check, Mail, MapPin, Phone, Sparkles } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { ProjectsGallery } from "@/components/home/projects-gallery"
 import { ClientsScroller } from "@/components/home/clients-scroller"
@@ -427,32 +427,6 @@ export default function HomePage() {
               <p className="mt-6 max-w-md text-lg text-muted-ink">
                 Contanos qué necesitás y te asesoramos sin cargo. Respondemos por WhatsApp a la brevedad.
               </p>
-              <ul className="mt-10 max-w-md border-t border-line">
-                <li className="flex items-center gap-4 border-b border-line py-4">
-                  <MapPin className="h-5 w-5 shrink-0 text-brand" />
-                  <span className="font-medium">{contact.location}</span>
-                </li>
-                <li className="border-b border-line">
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="group flex items-center gap-4 py-4 font-medium transition-colors hover:text-brand"
-                  >
-                    <Mail className="h-5 w-5 shrink-0 text-brand" />
-                    {contact.email}
-                    <ArrowUpRight className="ml-auto h-4 w-4 text-ink/30 transition-all group-hover:text-brand" />
-                  </a>
-                </li>
-                <li className="border-b border-line">
-                  <a
-                    href={contact.phoneHref}
-                    className="group flex items-center gap-4 py-4 font-medium transition-colors hover:text-brand"
-                  >
-                    <Phone className="h-5 w-5 shrink-0 text-brand" />
-                    {contact.phoneLabel}
-                    <ArrowUpRight className="ml-auto h-4 w-4 text-ink/30 transition-all group-hover:text-brand" />
-                  </a>
-                </li>
-              </ul>
             </Reveal>
 
             <Reveal delay={0.15}>
