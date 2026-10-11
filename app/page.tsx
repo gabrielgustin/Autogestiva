@@ -7,14 +7,13 @@ import { Navbar } from "@/components/navbar"
 import { ProjectsGallery } from "@/components/home/projects-gallery"
 import { ProcessTimeline } from "@/components/home/process-timeline"
 import { ClientsScroller } from "@/components/home/clients-scroller"
-import { DashboardMockup, SeoVisual } from "@/components/home/mockups"
+import { DashboardMockup } from "@/components/home/mockups"
 import { CtaButton, Eyebrow, Reveal, WhatsAppIcon, scrollToSection, useOnScreen } from "@/components/home/primitives"
 import {
   contact,
   erpFeatures,
   footerSolutions,
   processSteps,
-  seoChecks,
   services,
   solutions,
   techStack,
@@ -235,37 +234,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── SEO / Migrations ─────────────────────────────────── */}
-        <section id="seo" className="scroll-mt-20 py-24 md:py-32">
-          <div className={`${container} grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20`}>
-            <Reveal>
-              <Eyebrow index="04">SEO & Migraciones</Eyebrow>
-              <h2 className="font-display h-section mt-5 text-balance">
-                Migraciones <span className="whitespace-nowrap text-brand">SEO-friendly</span> y seguras
-              </h2>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-ink">
-                Migrar un sitio no es solo copiar y pegar. Nos aseguramos de que el traspaso sea limpio, sin perder
-                posicionamiento ni afectar tu tráfico. Redireccionamientos, indexación y velocidad bajo control.
-              </p>
-              <ul className="mt-8 max-w-xl border-t border-line">
-                {seoChecks.map((item, i) => (
-                  <li key={item} className="flex items-center gap-4 border-b border-line py-4 font-medium text-ink">
-                    <span className="font-mono text-xs text-orange-700">0{i + 1}</span>
-                    {item}
-                    <Check className="ml-auto h-4 w-4 shrink-0 text-green-600" />
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-9">
-                <CtaButton onClick={goToContact}>Posicioná tu web</CtaButton>
-              </div>
-            </Reveal>
-            <Reveal delay={0.15} className="pb-20">
-              <SeoVisual />
-            </Reveal>
-          </div>
-        </section>
-
         {/* ── Sistemas de gestión (ERP) ────────────────────────── */}
         <section id="sistemas" className="scroll-mt-20 border-y border-line bg-white py-24 md:py-32">
           <div className={container}>
@@ -274,7 +242,7 @@ export default function HomePage() {
                 <DashboardMockup />
               </Reveal>
               <Reveal delay={0.1} className="order-1 lg:order-2">
-                <Eyebrow index="05">ERP / Sistemas de gestión</Eyebrow>
+                <Eyebrow index="04">ERP / Sistemas de gestión</Eyebrow>
                 <h2 className="font-display h-section mt-5 text-balance">
                   Sistemas de gestión que impulsan tu operación
                 </h2>
@@ -313,7 +281,7 @@ export default function HomePage() {
           <div className={container}>
             <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
-                <Eyebrow index="06">Proceso</Eyebrow>
+                <Eyebrow index="05">Proceso</Eyebrow>
                 <h2 className="font-display h-section mt-5 text-balance">De la idea al lanzamiento en 3 pasos</h2>
               </div>
               <p className="text-lg text-muted-ink lg:col-span-5">
@@ -331,7 +299,7 @@ export default function HomePage() {
           <div className={container}>
             <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
-                <Eyebrow index="07">Clientes</Eyebrow>
+                <Eyebrow index="06">Clientes</Eyebrow>
                 <h2 className="font-display h-section mt-5 text-balance">Marcas que ya confían en nosotros</h2>
               </div>
               <p className="text-lg text-muted-ink lg:col-span-5">
@@ -373,7 +341,7 @@ export default function HomePage() {
         <section id="contacto" className="scroll-mt-20 py-24 md:py-32">
           <div className={`${container} grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20`}>
             <Reveal>
-              <Eyebrow index="08">Contacto</Eyebrow>
+              <Eyebrow index="07">Contacto</Eyebrow>
               <h2 className="font-display h-section mt-5 text-balance">Hablemos de tu proyecto</h2>
               <p className="mt-6 max-w-md text-lg text-muted-ink">
                 Contanos qué necesitás y te asesoramos sin cargo. Respondemos por WhatsApp a la brevedad.

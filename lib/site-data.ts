@@ -50,12 +50,6 @@ export const navServices: { icon: LucideIcon; title: string; description: string
     description: "Mostrá tus productos de forma clara y autogestionable.",
     href: "/#soluciones",
   },
-  {
-    icon: Search,
-    title: "SEO & Migraciones",
-    description: "Posicionamiento y traspasos seguros sin perder tráfico.",
-    href: "/#seo",
-  },
 ]
 
 export const techStack = [
@@ -143,12 +137,6 @@ export const erpFeatures: { icon: LucideIcon; title: string; text: string }[] = 
   { icon: ShieldCheck, title: "Roles y permisos", text: "Control total y datos seguros." },
   { icon: TrendingUp, title: "Reportes en vivo", text: "Decisiones con información real." },
   { icon: Code2, title: "A medida", text: "Se adapta a tus procesos, no al revés." },
-]
-
-export const seoChecks = [
-  "Redirecciones 301 sin pérdida de ranking",
-  "Indexación y sitemap optimizados",
-  "Auditoría de velocidad y Core Web Vitals",
 ]
 
 export const processSteps: { title: string; description: string; icon: LucideIcon; tags: string[] }[] = [
