@@ -82,7 +82,7 @@ export default function HomePage() {
                       />
                     </svg>
                   </span>{" "}
-                  a tu negocio
+                  tu negocio
                 </span>
               </span>
             </h1>
