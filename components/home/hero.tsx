@@ -7,7 +7,7 @@ import { CtaButton } from "@/components/home/primitives"
 const container = "mx-auto max-w-[1320px] px-5 md:px-8"
 const checks = ["Entrega rápida", "100% autogestionable", "Soporte incluido"]
 
-const LENS_RADIUS = 150
+const LENS_RADIUS = 100
 
 /* Etiqueta de anotación del plano (como las cotas de un dibujo técnico) */
 function Tag({ children, className = "" }: { children: React.ReactNode; className?: string }) {
