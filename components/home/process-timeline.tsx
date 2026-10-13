@@ -111,11 +111,17 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
               </div>
               <div className="pt-8 lg:pr-12">
                 <div className="flex items-end justify-between">
-                  <span
-                    className="font-display text-[5.5rem] font-bold leading-[0.8] tracking-tighter text-transparent md:text-[7rem]"
-                    style={{ WebkitTextStroke: "1.5px #0057b8" }}
-                  >
-                    0{index + 1}
+                  {/* Número en contorno que se llena de abajo hacia arriba con el avance de su paso.
+                      El relleno es una copia recortada que se mueve solo con transform (no repinta). */}
+                  <span className="font-display relative inline-block text-[5.5rem] font-bold leading-[0.8] tracking-tighter md:text-[7rem]">
+                    <span className="text-transparent" style={{ WebkitTextStroke: "1.5px #0057b8" }}>
+                      0{index + 1}
+                    </span>
+                    <span aria-hidden="true" className="num-fill absolute inset-x-0 -inset-y-[0.16em] overflow-hidden">
+                      <span className="num-fill-inner block py-[0.16em] text-brand" style={{ WebkitTextStroke: "1.5px #0057b8" }}>
+                        0{index + 1}
+                      </span>
+                    </span>
                   </span>
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand text-white">
                     <Icon className="h-6 w-6" />

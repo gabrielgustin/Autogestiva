@@ -46,6 +46,35 @@ export function useOnScreen<T extends HTMLElement>() {
   return { ref, onScreen }
 }
 
+/* Botón "magnético": se acerca apenas al cursor (solo con mouse) */
+export function useMagnetic<T extends HTMLElement>(strength = 0.22) {
+  const ref = useRef<T>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect()
+      const dx = e.clientX - (rect.left + rect.width / 2)
+      const dy = e.clientY - (rect.top + rect.height / 2)
+      el.style.translate = `${(dx * strength).toFixed(1)}px ${(dy * strength).toFixed(1)}px`
+    }
+    const onLeave = () => {
+      el.style.translate = ""
+    }
+    el.addEventListener("pointermove", onMove)
+    el.addEventListener("pointerleave", onLeave)
+    return () => {
+      el.removeEventListener("pointermove", onMove)
+      el.removeEventListener("pointerleave", onLeave)
+    }
+  }, [strength])
+
+  return ref
+}
+
 export function Reveal({
   children,
   delay = 0,
@@ -142,16 +171,17 @@ export function CtaButton({
     </>
   )
   const classes = `${ctaBase} ${ctaVariants[variant]} ${className}`
+  const magnet = useMagnetic<HTMLElement>()
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <a ref={magnet as React.Ref<HTMLAnchorElement>} href={href} className={classes}>
         {inner}
       </a>
     )
   }
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button ref={magnet as React.Ref<HTMLButtonElement>} type={type} onClick={onClick} className={classes}>
       {inner}
     </button>
   )
