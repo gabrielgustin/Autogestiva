@@ -196,32 +196,13 @@ export function Hero({ onCta }: { onCta: () => void }) {
   const planModeRef = useRef(false)
   const scanTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [showingPlan, setShowingPlan] = useState(false)
-  const [intro, setIntro] = useState(true)
-
-  // Al terminar el barrido inicial, el control pasa a JavaScript (lente y botón)
-  useEffect(() => {
-    const plan = planRef.current
-    if (!plan) return
-    const finish = () => setIntro(false)
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      finish()
-      return
-    }
-    plan.addEventListener("animationend", finish, { once: true })
-    // Red de seguridad por si la animación no llega a dispararse
-    const fallback = setTimeout(finish, 2600)
-    return () => {
-      plan.removeEventListener("animationend", finish)
-      clearTimeout(fallback)
-    }
-  }, [])
 
   // Lente: bajo el cursor se ve el plano de lo que hay debajo
   useEffect(() => {
     const section = sectionRef.current
     const plan = planRef.current
     const ring = ringRef.current
-    if (!section || !plan || !ring || intro) return
+    if (!section || !plan || !ring) return
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return
 
     let x = 0
@@ -288,7 +269,7 @@ export function Hero({ onCta }: { onCta: () => void }) {
       plan.style.setProperty("--lens-r", "0px")
       ring.style.opacity = "0"
     }
-  }, [intro])
+  }, [])
 
   useEffect(() => () => clearTimeout(scanTimer.current), [])
 
@@ -296,7 +277,6 @@ export function Hero({ onCta }: { onCta: () => void }) {
     const next = !showingPlan
     planModeRef.current = next
     setShowingPlan(next)
-    setIntro(false)
     const plan = planRef.current
     const line = lineRef.current
     if (!plan || !line) return
@@ -330,7 +310,7 @@ export function Hero({ onCta }: { onCta: () => void }) {
         ref={planRef}
         aria-hidden="true"
         inert
-        className={`hero-plan bg-plan pointer-events-none absolute inset-0 select-none ${intro ? "hero-intro" : "hero-ready"}`}
+        className={`hero-plan bg-plan pointer-events-none absolute inset-0 select-none hero-ready`}
       >
         {/* Marcas de registro en las esquinas */}
         {["left-2 top-2", "right-2 top-2", "bottom-2 left-2", "bottom-2 right-2"].map((pos) => (
@@ -343,7 +323,7 @@ export function Hero({ onCta }: { onCta: () => void }) {
       <span
         ref={lineRef}
         aria-hidden="true"
-        className={`hero-scanline pointer-events-none absolute inset-0 ${intro ? "hero-intro" : "hero-ready"}`}
+        className={`hero-scanline pointer-events-none absolute inset-0 hero-ready`}
       >
         <span className="hero-scanline-bar absolute inset-y-0 left-0" />
         <span className="absolute left-2 top-3 whitespace-nowrap bg-orange-500 px-1.5 py-[3px] font-mono text-[9px] uppercase leading-none tracking-[0.14em] text-white">

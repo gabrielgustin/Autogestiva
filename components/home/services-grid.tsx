@@ -68,23 +68,23 @@ export function ServicesGrid() {
               <span aria-hidden="true" className="service-ink absolute inset-0 bg-ink" />
               <span
                 aria-hidden="true"
-                className="bg-blueprint-inv absolute inset-0 opacity-0 transition-opacity duration-700 group-data-[active=true]:opacity-100"
+                className="bg-blueprint-inv absolute inset-0 opacity-0 transition-opacity duration-[1400ms] ease-out group-data-[active=true]:opacity-100"
               />
               <div className="relative flex items-center justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-light text-brand transition-all duration-500 group-data-[active=true]:-rotate-6 group-data-[active=true]:scale-110 group-data-[active=true]:bg-brand group-data-[active=true]:text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-light text-brand transition-all duration-[900ms] ease-out group-data-[active=true]:-rotate-6 group-data-[active=true]:scale-110 group-data-[active=true]:bg-brand group-data-[active=true]:text-white">
                   <Icon className="h-6 w-6" />
                 </span>
-                <span className="font-mono text-xs text-ink/55 transition-colors duration-500 group-data-[active=true]:text-white/60">
+                <span className="font-mono text-xs text-ink/55 transition-colors duration-[900ms] ease-out group-data-[active=true]:text-white/60">
                   0{index + 1}
                 </span>
               </div>
-              <h3 className="font-display relative mt-10 text-2xl font-semibold leading-tight tracking-tight transition-colors duration-500 group-data-[active=true]:text-white">
+              <h3 className="font-display relative mt-10 text-2xl font-semibold leading-tight tracking-tight transition-colors duration-[900ms] ease-out group-data-[active=true]:text-white">
                 {service.title}
               </h3>
-              <p className="relative mt-3 text-[15px] leading-relaxed text-muted-ink transition-colors duration-500 group-data-[active=true]:text-white/70">
+              <p className="relative mt-3 text-[15px] leading-relaxed text-muted-ink transition-colors duration-[900ms] ease-out group-data-[active=true]:text-white/70">
                 {service.description}
               </p>
-              <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-orange-500 transition-transform duration-700 group-data-[active=true]:scale-x-100" />
+              <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-orange-500 transition-transform duration-[1200ms] ease-out group-data-[active=true]:scale-x-100" />
             </article>
           </Reveal>
         )

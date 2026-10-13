@@ -513,30 +513,6 @@ summary,
     radial-gradient(circle var(--lens-r) at var(--lens-x) var(--lens-y), #000 calc(100% - 1px), transparent 100%);
 }
 
-@keyframes hero-scan {
-  from {
-    --scan: 0%;
-  }
-  to {
-    --scan: 100%;
-  }
-}
-@keyframes hero-scanline-fade {
-  0% {
-    opacity: 0;
-  }
-  5%,
-  93% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-.hero-plan.hero-intro {
-  animation: hero-scan 1.15s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both;
-}
-
 /* La línea viaja con transform (no con left) para no provocar saltos de diseño */
 .hero-scanline {
   --scan: 100%;
@@ -548,10 +524,6 @@ summary,
   margin-left: -1px;
   background: #f97316;
   box-shadow: 0 0 26px 5px rgba(249, 115, 22, 0.5);
-}
-.hero-scanline.hero-intro {
-  animation: hero-scan 1.15s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both,
-    hero-scanline-fade 1.15s linear 0.4s both;
 }
 .hero-plan.hero-ready {
   transition: --scan 1.1s cubic-bezier(0.65, 0, 0.35, 1);
@@ -635,7 +607,7 @@ summary,
 /* ── Servicios: la tinta nace donde entra el cursor ──────────────────── */
 .service-ink {
   clip-path: circle(0% at var(--ox, 50%) var(--oy, 50%));
-  transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: clip-path 1.25s cubic-bezier(0.33, 0.9, 0.3, 1);
 }
 [data-active="true"] > .service-ink {
   clip-path: circle(150% at var(--ox, 50%) var(--oy, 50%));
@@ -774,10 +746,6 @@ summary,
   .draw-stroke {
     animation: none !important;
     stroke-dashoffset: 0 !important;
-  }
-  .hero-plan.hero-intro,
-  .hero-scanline.hero-intro {
-    animation: none !important;
   }
   .hero-plan.hero-ready,
   .hero-scanline.hero-ready {
