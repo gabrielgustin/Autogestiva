@@ -469,6 +469,20 @@ summary,
     animation-timeline: --gallery;
     animation-range: contain 0% contain 100%;
   }
+  /* Profundidad: el teléfono y el navegador de cada tarjeta se mueven a otra velocidad que la galería */
+  .gallery-timeline [data-depth] {
+    animation: gallery-depth linear both;
+    animation-timeline: --gallery;
+    animation-range: contain 0% contain 100%;
+  }
+}
+@keyframes gallery-depth {
+  from {
+    transform: translate3d(var(--p0, 0px), 0, 0);
+  }
+  to {
+    transform: translate3d(var(--p1, 0px), 0, 0);
+  }
 }
 
 /* ── Hero: del plano al producto ─────────────────────────────────────────

@@ -288,6 +288,16 @@ export function ProjectsGallery() {
         }))
       })
     }
+    // Con scroll-driven animations, cada capa recibe su recorrido completo (inicio y fin) y el navegador la
+    // mueve en el mismo hilo que la galería: las dos van siempre a la par, sin desfase ni tirones.
+    const placeLayers = () => {
+      const travel = viewportWidth > 0 ? distance / viewportWidth : 0
+      for (const layer of layers) {
+        const from = (layer.depth * (layer.center - viewportWidth / 2)) / viewportWidth
+        layer.el.style.setProperty("--p0", `${from.toFixed(1)}px`)
+        layer.el.style.setProperty("--p1", `${(from - layer.depth * travel).toFixed(1)}px`)
+      }
+    }
     const parallax = (progress: number) => {
       for (const layer of layers) {
         // -1 = la tarjeta está una pantalla a la izquierda del centro, +1 = una pantalla a la derecha
@@ -302,8 +312,10 @@ export function ProjectsGallery() {
     const update = () => {
       frame = 0
       const progress = progressNow()
-      if (!native) track.style.transform = `translate3d(${-progress * distance}px, 0, 0)`
-      parallax(progress)
+      if (!native) {
+        track.style.transform = `translate3d(${-progress * distance}px, 0, 0)`
+        parallax(progress)
+      }
       setProgress(progress, !native)
     }
     const onScroll = () => {
@@ -311,6 +323,7 @@ export function ProjectsGallery() {
     }
     const onResize = () => {
       locate()
+      if (native) placeLayers()
       onScroll()
     }
 
@@ -319,6 +332,7 @@ export function ProjectsGallery() {
       if (barRef.current) barRef.current.style.transform = ""
     }
     locate()
+    if (native) placeLayers()
     update()
     window.addEventListener("scroll", onScroll, { passive: true })
     window.addEventListener("resize", onResize)
@@ -434,8 +448,8 @@ export function ProjectsGallery() {
       </div>
 
       <div ref={cursorRef} aria-hidden="true" data-visible="false" className="gallery-cursor pointer-events-none fixed left-0 top-0 z-50">
-        <span className="flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full bg-orange-500 font-mono text-[10px] uppercase leading-none tracking-[0.12em] text-white shadow-[0_18px_40px_-12px_rgba(249,115,22,0.7)]">
-          <ArrowUpRight className="h-4 w-4" />
+        <span className="flex h-[4.25rem] w-[4.25rem] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-0.5 rounded-full bg-orange-500 font-mono text-[9px] uppercase leading-none tracking-[0.1em] text-white shadow-[0_14px_30px_-10px_rgba(249,115,22,0.7)]">
+          <ArrowUpRight className="h-3.5 w-3.5" />
           Ver sitio
         </span>
       </div>
