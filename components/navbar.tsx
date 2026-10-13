@@ -1,22 +1,24 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown, ArrowRight, ArrowUpRight } from "lucide-react"
 import { navServices } from "@/lib/site-data"
 
 const links = [
-  { label: "Proyectos", href: "/#proyectos" },
-  { label: "Soluciones", href: "/#soluciones" },
-  { label: "Proceso", href: "/#como-funciona" },
-  { label: "Clientes", href: "/#clientes" },
+  { label: "Proyectos", href: "/#proyectos", id: "proyectos" },
+  { label: "Soluciones", href: "/#soluciones", id: "soluciones" },
+  { label: "Proceso", href: "/#como-funciona", id: "como-funciona" },
+  { label: "Clientes", href: "/#clientes", id: "clientes" },
 ]
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeId, setActiveId] = useState("")
+  const progressRef = useRef<HTMLSpanElement>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -25,11 +27,43 @@ export function Navbar() {
   }, [pathname])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
+    // Donde el navegador no anima con el scroll por CSS, la barra de avance se mueve desde acá
+    const manual = typeof CSS === "undefined" || !CSS.supports("animation-timeline: scroll()")
+    let last = false
+    const onScroll = () => {
+      const next = window.scrollY > 12
+      if (next !== last) {
+        last = next
+        setScrolled(next)
+      }
+      if (manual && progressRef.current) {
+        const max = document.documentElement.scrollHeight - window.innerHeight
+        progressRef.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`
+      }
+    }
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
+
+  // Marca en el menú la sección que está pasando por el centro de la pantalla
+  useEffect(() => {
+    const sections = links.map((l) => document.getElementById(l.id)).filter((el): el is HTMLElement => !!el)
+    if (!sections.length) return
+    const visible = new Set<string>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target.id)
+          else visible.delete(entry.target.id)
+        })
+        setActiveId(links.find((l) => visible.has(l.id))?.id ?? "")
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    )
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [pathname])
 
   useEffect(() => {
     if (!isMenuOpen) return
@@ -119,15 +153,26 @@ export function Navbar() {
               )}
             </div>
 
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-full px-4 py-2 text-[15px] font-medium text-ink/80 transition-colors hover:bg-ink/5 hover:text-ink"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const active = activeId === link.id
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "location" : undefined}
+                  className={`relative rounded-full px-4 py-2 text-[15px] font-medium transition-colors hover:bg-ink/5 hover:text-ink ${
+                    active ? "text-ink" : "text-ink/80"
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-orange-500 transition-all duration-300 ${
+                      active ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                    }`}
+                  />
+                </Link>
+              )
+            })}
           </nav>
         </div>
 
@@ -152,6 +197,13 @@ export function Navbar() {
           {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
+
+      {/* Avance de lectura de la página */}
+      <span
+        ref={progressRef}
+        aria-hidden="true"
+        className="nav-progress pointer-events-none absolute inset-x-0 -bottom-px h-0.5 bg-orange-500"
+      />
 
       {/* Mobile menu */}
       {isMenuOpen && (

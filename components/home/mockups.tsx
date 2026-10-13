@@ -61,16 +61,30 @@ export function DashboardMockup() {
     </div>
   )
 
+  // Dentro de <Tilt>, translateZ separa las capas: el panel al fondo y las etiquetas flotando adelante
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative" style={{ transformStyle: "preserve-3d" }}>
       <BrowserFrame>{panel}</BrowserFrame>
-      <div className="animate-float absolute -bottom-7 -left-2 flex items-center gap-3 rounded-2xl border border-ink/10 bg-white p-3.5 pr-5 shadow-xl md:-left-6">
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-green-100 text-green-600">
-          <Clock className="h-5 w-5" />
-        </span>
-        <div>
-          <p className="font-display text-xl font-bold leading-none text-ink">-80% tiempo</p>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-ink">operativo</p>
+
+      <div className="absolute -right-2 top-10 md:-right-5" style={{ transform: "translateZ(46px)" }}>
+        <div
+          className="animate-float flex items-center gap-2.5 rounded-full border border-ink/10 bg-white py-2 pl-3 pr-4 shadow-lg"
+          style={{ animationDelay: "-3s" }}
+        >
+          <span className="animate-pulse-dot h-2 w-2 rounded-full bg-green-500" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink">Reportes en vivo</span>
+        </div>
+      </div>
+
+      <div className="absolute -bottom-7 -left-2 md:-left-6" style={{ transform: "translateZ(78px)" }}>
+        <div className="animate-float flex items-center gap-3 rounded-2xl border border-ink/10 bg-white p-3.5 pr-5 shadow-xl">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-green-100 text-green-600">
+            <Clock className="h-5 w-5" />
+          </span>
+          <div>
+            <p className="font-display text-xl font-bold leading-none text-ink">-80% tiempo</p>
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-ink">operativo</p>
+          </div>
         </div>
       </div>
     </div>

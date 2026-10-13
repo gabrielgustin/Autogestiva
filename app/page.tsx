@@ -2,20 +2,23 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Check, Mail, MapPin, Phone, Sparkles } from "lucide-react"
+import { Check, Mail, MapPin, Phone } from "lucide-react"
 import { Navbar } from "@/components/navbar"
+import { Hero } from "@/components/home/hero"
 import { ProjectsGallery } from "@/components/home/projects-gallery"
 import { ProcessTimeline } from "@/components/home/process-timeline"
 import { ClientsScroller } from "@/components/home/clients-scroller"
 import { DashboardMockup } from "@/components/home/mockups"
+import { ChatPreview, type ChatField } from "@/components/home/chat-preview"
+import { ServicesGrid } from "@/components/home/services-grid"
+import { SolutionsDeck } from "@/components/home/solutions-deck"
+import { ScrollFillText, SplitHeading, Spotlight, Tilt } from "@/components/home/effects"
 import { CtaButton, Eyebrow, Reveal, WhatsAppIcon, scrollToSection, useOnScreen } from "@/components/home/primitives"
 import {
   contact,
   erpFeatures,
   footerSolutions,
   processSteps,
-  services,
-  solutions,
   techStack,
 } from "@/lib/site-data"
 
@@ -26,6 +29,7 @@ export default function HomePage() {
   const [nombre, setNombre] = useState("")
   const [apellido, setApellido] = useState("")
   const [consulta, setConsulta] = useState("")
+  const [activeField, setActiveField] = useState<ChatField>(null)
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -45,72 +49,7 @@ export default function HomePage() {
 
       <main>
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section id="hero" className="relative overflow-hidden">
-          <div className="bg-blueprint fade-edges-y pointer-events-none absolute inset-0" />
-          <div
-            className="pointer-events-none absolute -right-32 top-40 h-[560px] w-[560px]"
-            style={{ background: "radial-gradient(closest-side, rgba(0,87,184,0.16), transparent)" }}
-          />
-
-          <div className={`${container} relative pb-16 pt-10 md:pb-20 md:pt-16`}>
-            <p className="animate-rise-in eyebrow inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-brand/25 bg-white/70 px-4 py-2.5 text-brand backdrop-blur max-sm:text-[10px] max-sm:tracking-[0.06em]">
-              <Sparkles className="h-3.5 w-3.5" />
-              Desarrollo web y sistemas de gestión a medida
-            </p>
-
-            <h1 className="font-display h-mega mt-7 text-ink">
-              <span className="line-mask">
-                <span className="text-balance">Soluciones digitales que</span>
-              </span>
-              <span className="line-mask">
-                <span style={{ animationDelay: "0.12s" }}>
-                  <span className="relative inline-block text-brand">
-                    escalan
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 300 20"
-                      preserveAspectRatio="none"
-                      className="absolute -bottom-[0.04em] left-0 h-[0.14em] w-full overflow-visible"
-                    >
-                      <path
-                        d="M3 14 C 60 3, 120 3, 170 10 S 260 16, 297 6"
-                        fill="none"
-                        stroke="#f97316"
-                        strokeWidth="6"
-                        strokeLinecap="round"
-                        className="draw-stroke"
-                      />
-                    </svg>
-                  </span>{" "}
-                  tu negocio
-                </span>
-              </span>
-            </h1>
-
-            <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-12 lg:grid-cols-12 lg:items-end">
-              <div className="animate-rise-in lg:col-span-7" style={{ animationDelay: "0.35s" }}>
-                <p className="max-w-2xl text-pretty text-lg leading-relaxed text-muted-ink md:text-xl">
-                  No trabajamos con plantillas genéricas. Diseñamos y desarrollamos páginas web, tiendas online y
-                  sistemas de gestión a medida, pensados para tus procesos, tus usuarios y tus objetivos.
-                </p>
-                <div className="mt-9">
-                  <CtaButton onClick={goToContact}>Cotizá tu proyecto</CtaButton>
-                </div>
-              </div>
-
-              <ul
-                className="animate-rise-in border-t border-line lg:col-span-4 lg:col-start-9"
-                style={{ animationDelay: "0.5s" }}
-              >
-                {["Entrega rápida", "100% autogestionable", "Soporte incluido"].map((item) => (
-                  <li key={item} className="flex items-center gap-3 border-b border-line py-3.5 font-medium text-ink">
-                    <Check className="h-4 w-4 shrink-0 text-green-600" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        <Hero onCta={goToContact} />
 
         {/* ── Portfolio ────────────────────────────────────────── */}
         <ProjectsGallery />
@@ -138,99 +77,37 @@ export default function HomePage() {
         {/* ── Services ─────────────────────────────────────────── */}
         <section id="servicios" className="scroll-mt-20 py-24 md:py-32">
           <div className={container}>
-            <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
-                <Eyebrow index="02">Servicios</Eyebrow>
-                <h2 className="font-display h-section mt-5 text-balance">Todo lo que tu presencia digital necesita</h2>
-              </div>
-              <p className="text-lg text-muted-ink lg:col-span-5">
-                Un equipo, todas las piezas: diseño, desarrollo, rendimiento y posicionamiento bajo un mismo criterio
-                técnico.
-              </p>
-            </Reveal>
+            <Eyebrow index="02">Servicios</Eyebrow>
+            <SplitHeading className="font-display h-section mt-5 max-w-3xl text-balance">
+              Todo lo que tu presencia digital necesita
+            </SplitHeading>
+            <ScrollFillText className="font-display mt-8 max-w-4xl text-balance text-[clamp(1.35rem,2.6vw,2.15rem)] font-medium leading-[1.25] tracking-tight text-ink">
+              Un equipo, todas las piezas: diseño, desarrollo, rendimiento y posicionamiento bajo un mismo criterio técnico.
+            </ScrollFillText>
 
-            <div className="mt-14 grid grid-cols-1 border-l border-t border-line sm:grid-cols-2 lg:grid-cols-4">
-              {services.map((service, index) => {
-                const Icon = service.icon
-                return (
-                  <Reveal key={service.title} delay={0.07 * index} className="h-full">
-                    <article className="group relative flex h-full flex-col overflow-hidden border-b border-r border-line p-7 transition-colors duration-500 hover:bg-ink md:p-8">
-                      <div className="flex items-center justify-between">
-                        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-light text-brand transition-colors duration-500 group-hover:bg-brand group-hover:text-white">
-                          <Icon className="h-6 w-6" />
-                        </span>
-                        <span className="font-mono text-xs text-ink/55 transition-colors duration-500 group-hover:text-white/60">
-                          0{index + 1}
-                        </span>
-                      </div>
-                      <h3 className="font-display mt-10 text-2xl font-semibold leading-tight tracking-tight transition-colors duration-500 group-hover:text-white">
-                        {service.title}
-                      </h3>
-                      <p className="mt-3 text-[15px] leading-relaxed text-muted-ink transition-colors duration-500 group-hover:text-white/65">
-                        {service.description}
-                      </p>
-                      <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-orange-500 transition-transform duration-500 group-hover:scale-x-100" />
-                    </article>
-                  </Reveal>
-                )
-              })}
-            </div>
+            <ServicesGrid />
           </div>
         </section>
 
         {/* ── Solutions ────────────────────────────────────────── */}
         <section id="soluciones" className="scroll-mt-20 border-t border-line bg-paper-2 py-24 md:py-32">
           <div className={container}>
-            <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
                 <Eyebrow index="03">Soluciones</Eyebrow>
-                <h2 className="font-display h-section mt-5 text-balance">
+                <SplitHeading className="font-display h-section mt-5 text-balance">
                   Soluciones a medida para cada tipo de negocio
-                </h2>
+                </SplitHeading>
               </div>
-              <p className="text-lg text-muted-ink lg:col-span-5">
-                Desde una landing que convierte hasta un ERP que automatiza tu operación. Elegimos el camino correcto
-                para vos.
-              </p>
-            </Reveal>
-
-            <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2">
-              {solutions.map((solution, index) => {
-                const Icon = solution.icon
-                return (
-                  <Reveal key={solution.title} delay={0.06 * (index % 2)} className="h-full">
-                    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-shadow duration-500 hover:shadow-[0_40px_80px_-40px_rgba(11,19,34,0.35)]">
-                      <div className="p-7 md:p-9">
-                        <div className="flex items-center gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink text-white">
-                            <Icon className="h-6 w-6" />
-                          </span>
-                          {solution.badge && (
-                            <span className="eyebrow rounded-full bg-orange-500 px-3 py-1.5 font-semibold text-white">
-                              {solution.badge}
-                            </span>
-                          )}
-                          <span className="ml-auto font-mono text-xs text-ink/55">0{index + 1}</span>
-                        </div>
-                        <h3 className="font-display mt-7 text-3xl font-semibold tracking-tight md:text-[2.1rem]">
-                          {solution.title}
-                        </h3>
-                        <p className="mt-3 max-w-lg leading-relaxed text-muted-ink">{solution.description}</p>
-                        <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
-                          {solution.features.map((feature) => (
-                            <li key={feature} className="flex items-center gap-2 text-sm font-medium text-ink">
-                              <Check className="h-4 w-4 shrink-0 text-brand" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                    </article>
-                  </Reveal>
-                )
-              })}
+              <Reveal delay={0.15} className="lg:col-span-5">
+                <p className="text-lg text-muted-ink">
+                  Desde una landing que convierte hasta un ERP que automatiza tu operación. Elegimos el camino correcto
+                  para vos.
+                </p>
+              </Reveal>
             </div>
+
+            <SolutionsDeck />
           </div>
         </section>
 
@@ -239,13 +116,15 @@ export default function HomePage() {
           <div className={container}>
             <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
               <Reveal className="order-2 pb-8 lg:order-1">
-                <DashboardMockup />
+                <Tilt>
+                  <DashboardMockup />
+                </Tilt>
               </Reveal>
               <Reveal delay={0.1} className="order-1 lg:order-2">
                 <Eyebrow index="04">ERP / Sistemas de gestión</Eyebrow>
-                <h2 className="font-display h-section mt-5 text-balance">
+                <SplitHeading className="font-display h-section mt-5 text-balance">
                   Sistemas de gestión que impulsan tu operación
-                </h2>
+                </SplitHeading>
                 <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-ink">
                   Desarrollamos plataformas internas a medida que automatizan tareas y digitalizan procesos clave.
                   Nuestros sistemas ayudaron a empresas a reducir hasta un 80% del tiempo operativo, mejorando su
@@ -282,7 +161,9 @@ export default function HomePage() {
             <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
                 <Eyebrow index="05">Proceso</Eyebrow>
-                <h2 className="font-display h-section mt-5 text-balance">De la idea al lanzamiento en 3 pasos</h2>
+                <SplitHeading className="font-display h-section mt-5 text-balance">
+                  De la idea al lanzamiento en 3 pasos
+                </SplitHeading>
               </div>
               <p className="text-lg text-muted-ink lg:col-span-5">
                 Un camino claro y transparente. Así acompañamos tu proyecto desde la primera charla hasta que estás
@@ -300,7 +181,9 @@ export default function HomePage() {
             <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
                 <Eyebrow index="06">Clientes</Eyebrow>
-                <h2 className="font-display h-section mt-5 text-balance">Marcas que ya confían en nosotros</h2>
+                <SplitHeading className="font-display h-section mt-5 text-balance">
+                  Marcas que ya confían en nosotros
+                </SplitHeading>
               </div>
               <p className="text-lg text-muted-ink lg:col-span-5">
                 Negocios de rubros muy distintos eligieron nuestras soluciones digitales para crecer.
@@ -319,11 +202,13 @@ export default function HomePage() {
             className="pointer-events-none absolute -bottom-40 -right-20 h-[620px] w-[620px]"
             style={{ background: "radial-gradient(closest-side, #00376f, transparent)" }}
           />
+          {/* la grilla se enciende cerca del cursor */}
+          <Spotlight className="bg-blueprint-spot" />
           <div className={`${container} relative`}>
-            <Reveal>
-              <h2 className="font-display h-mega max-w-5xl text-balance">
-                ¿Listo para transformar tu presencia digital?
-              </h2>
+            <SplitHeading className="font-display h-mega max-w-5xl text-balance">
+              ¿Listo para transformar tu presencia digital?
+            </SplitHeading>
+            <Reveal delay={0.25}>
               <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                 <p className="max-w-xl text-lg text-white/85 md:text-xl">
                   Asesoría gratuita para entender qué solución necesita tu negocio. Sin complicaciones, entrega rápida
@@ -342,10 +227,14 @@ export default function HomePage() {
           <div className={`${container} grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20`}>
             <Reveal>
               <Eyebrow index="07">Contacto</Eyebrow>
-              <h2 className="font-display h-section mt-5 text-balance">Hablemos de tu proyecto</h2>
+              <SplitHeading className="font-display h-section mt-5 text-balance">Hablemos de tu proyecto</SplitHeading>
               <p className="mt-6 max-w-md text-lg text-muted-ink">
                 Contanos qué necesitás y te asesoramos sin cargo. Respondemos por WhatsApp a la brevedad.
               </p>
+              {/* En pantallas grandes, el mensaje se ve armarse mientras se completa el formulario */}
+              <div className="mt-12 hidden lg:block">
+                <ChatPreview nombre={nombre} apellido={apellido} consulta={consulta} active={activeField} />
+              </div>
             </Reveal>
 
             <Reveal delay={0.15}>
@@ -359,6 +248,8 @@ export default function HomePage() {
                       <input
                         type="text"
                         id="nombre"
+                        onFocus={() => setActiveField("nombre")}
+                        onBlur={() => setActiveField(null)}
                         autoComplete="given-name"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
@@ -373,6 +264,8 @@ export default function HomePage() {
                       <input
                         type="text"
                         id="apellido"
+                        onFocus={() => setActiveField("apellido")}
+                        onBlur={() => setActiveField(null)}
                         autoComplete="family-name"
                         value={apellido}
                         onChange={(e) => setApellido(e.target.value)}
@@ -387,6 +280,8 @@ export default function HomePage() {
                     </label>
                     <textarea
                       id="consulta"
+                      onFocus={() => setActiveField("consulta")}
+                      onBlur={() => setActiveField(null)}
                       rows={4}
                       value={consulta}
                       onChange={(e) => setConsulta(e.target.value)}
