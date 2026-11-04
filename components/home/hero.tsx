@@ -155,11 +155,9 @@ function HeroContent({
 export function Hero({ onCta }: { onCta: () => void }) {
   const sectionRef = useRef<HTMLElement>(null)
   const planRef = useRef<HTMLDivElement>(null)
-  const lineRef = useRef<HTMLSpanElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const coordRef = useRef<HTMLSpanElement>(null)
   const planModeRef = useRef(false)
-  const scanTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   // Lente: bajo el cursor se ve el plano de lo que hay debajo
   useEffect(() => {
@@ -235,8 +233,6 @@ export function Hero({ onCta }: { onCta: () => void }) {
     }
   }, [])
 
-  useEffect(() => () => clearTimeout(scanTimer.current), [])
-
   return (
     <section id="hero" ref={sectionRef} className="hero relative overflow-hidden">
       {/* Producto terminado */}
@@ -262,18 +258,6 @@ export function Hero({ onCta }: { onCta: () => void }) {
         ))}
         <HeroContent plan />
       </div>
-
-      {/* Línea de barrido que "construye" el sitio */}
-      <span
-        ref={lineRef}
-        aria-hidden="true"
-        className={`hero-scanline pointer-events-none absolute inset-0 hero-ready`}
-      >
-        <span className="hero-scanline-bar absolute inset-y-0 left-0" />
-        <span className="absolute left-2 top-3 whitespace-nowrap bg-orange-500 px-1.5 py-[3px] font-mono text-[9px] uppercase leading-none tracking-[0.14em] text-white">
-          Build
-        </span>
-      </span>
 
       {/* Aro de la lente */}
       <div

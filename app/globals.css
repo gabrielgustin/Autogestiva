@@ -527,26 +527,8 @@ summary,
     radial-gradient(circle var(--lens-r) at var(--lens-x) var(--lens-y), #000 calc(100% - 1px), transparent 100%);
 }
 
-/* La línea viaja con transform (no con left) para no provocar saltos de diseño */
-.hero-scanline {
-  --scan: 100%;
-  transform: translateX(var(--scan));
-  opacity: 0;
-}
-.hero-scanline-bar {
-  width: 2px;
-  margin-left: -1px;
-  background: #f97316;
-  box-shadow: 0 0 26px 5px rgba(249, 115, 22, 0.5);
-}
 .hero-plan.hero-ready {
   transition: --scan 1.1s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.hero-scanline.hero-ready {
-  transition: --scan 1.1s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.25s ease;
-}
-.hero-scanline[data-scanning="true"] {
-  opacity: 1;
 }
 
 /* Titular del plano: solo el contorno de las letras */
@@ -761,8 +743,7 @@ summary,
     animation: none !important;
     stroke-dashoffset: 0 !important;
   }
-  .hero-plan.hero-ready,
-  .hero-scanline.hero-ready {
+  .hero-plan.hero-ready {
     transition: none !important;
   }
   .split-word > span {
