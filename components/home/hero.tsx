@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { ArrowRight, Check, DraftingCompass, MonitorSmartphone, Sparkles } from "lucide-react"
+import { useEffect, useRef } from "react"
+import { ArrowRight, Check, Sparkles } from "lucide-react"
 import { CtaButton } from "@/components/home/primitives"
 
 const container = "mx-auto max-w-[1320px] px-5 md:px-8"
@@ -20,27 +20,16 @@ function Tag({ children, className = "" }: { children: React.ReactNode; classNam
   )
 }
 
-function ToggleLabel({ showingPlan }: { showingPlan: boolean }) {
-  return (
-    // en pantallas chicas queda solo el ícono, para entrar al lado del botón principal
-    <span className="hidden pl-3 pr-3 sm:inline">{showingPlan ? "Ver el producto" : "Ver el plano"}</span>
-  )
-}
-
 /*
  * El contenido del hero se dibuja dos veces con la misma estructura y medidas:
  * la versión terminada ("producto") y su plano técnico. Como miden lo mismo, calzan una sobre la otra.
  */
 function HeroContent({
   plan = false,
-  showingPlan = false,
   onCta,
-  onToggle,
 }: {
   plan?: boolean
-  showingPlan?: boolean
   onCta?: () => void
-  onToggle?: () => void
 }) {
   const Heading = plan ? "div" : "h1"
 
@@ -138,30 +127,6 @@ function HeroContent({
             ) : (
               <CtaButton onClick={onCta}>Cotizá tu proyecto</CtaButton>
             )}
-
-            {/* Alterna entre el plano y el producto terminado (también sirve en pantallas táctiles).
-                Las dos capas muestran el mismo texto para medir lo mismo. */}
-            {plan ? (
-              <span className="inline-flex items-center rounded-full p-2 text-[15px] font-semibold text-white outline-dashed outline-1 -outline-offset-1 outline-white/80">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-brand">
-                  <MonitorSmartphone className="h-4 w-4" />
-                </span>
-                <ToggleLabel showingPlan={showingPlan} />
-              </span>
-            ) : (
-              <button
-                type="button"
-                onClick={onToggle}
-                aria-pressed={showingPlan}
-                aria-label={showingPlan ? "Ver el producto terminado" : "Ver el plano técnico de esta sección"}
-                className="group inline-flex items-center rounded-full bg-white/70 p-2 text-[15px] font-semibold text-ink shadow-[inset_0_0_0_1px_rgba(11,19,34,0.15)] transition-all duration-300 hover:text-brand hover:shadow-[inset_0_0_0_1px_#0057b8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/25"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-white transition-colors duration-300 group-hover:bg-brand">
-                  <DraftingCompass className="h-4 w-4 transition-transform duration-500 group-hover:rotate-[24deg]" />
-                </span>
-                <ToggleLabel showingPlan={showingPlan} />
-              </button>
-            )}
           </div>
         </div>
 
@@ -195,7 +160,6 @@ export function Hero({ onCta }: { onCta: () => void }) {
   const coordRef = useRef<HTMLSpanElement>(null)
   const planModeRef = useRef(false)
   const scanTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  const [showingPlan, setShowingPlan] = useState(false)
 
   // Lente: bajo el cursor se ve el plano de lo que hay debajo
   useEffect(() => {
@@ -273,26 +237,6 @@ export function Hero({ onCta }: { onCta: () => void }) {
 
   useEffect(() => () => clearTimeout(scanTimer.current), [])
 
-  const toggle = () => {
-    const next = !showingPlan
-    planModeRef.current = next
-    setShowingPlan(next)
-    const plan = planRef.current
-    const line = lineRef.current
-    if (!plan || !line) return
-    // el plano ocupa desde la línea de barrido hacia la derecha: 0% = todo plano, 100% = todo producto
-    const value = next ? "0%" : "100%"
-    plan.style.setProperty("--lens-r", "0px")
-    if (ringRef.current) ringRef.current.style.opacity = "0"
-    plan.style.setProperty("--scan", value)
-    line.style.setProperty("--scan", value)
-    line.dataset.scanning = "true"
-    clearTimeout(scanTimer.current)
-    scanTimer.current = setTimeout(() => {
-      line.dataset.scanning = "false"
-    }, 1150)
-  }
-
   return (
     <section id="hero" ref={sectionRef} className="hero relative overflow-hidden">
       {/* Producto terminado */}
@@ -302,7 +246,7 @@ export function Hero({ onCta }: { onCta: () => void }) {
           className="pointer-events-none absolute -right-32 top-40 h-[560px] w-[560px]"
           style={{ background: "radial-gradient(closest-side, rgba(0,87,184,0.16), transparent)" }}
         />
-        <HeroContent onCta={onCta} onToggle={toggle} showingPlan={showingPlan} />
+        <HeroContent onCta={onCta} />
       </div>
 
       {/* Plano técnico: mismo contenido, visible a la derecha del barrido y dentro de la lente */}
@@ -316,7 +260,7 @@ export function Hero({ onCta }: { onCta: () => void }) {
         {["left-2 top-2", "right-2 top-2", "bottom-2 left-2", "bottom-2 right-2"].map((pos) => (
           <span key={pos} className={`plan-cross absolute h-3 w-3 ${pos}`} />
         ))}
-        <HeroContent plan showingPlan={showingPlan} />
+        <HeroContent plan />
       </div>
 
       {/* Línea de barrido que "construye" el sitio */}
