@@ -174,18 +174,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               {description}
             </p>
           )}
-          {url && (
-            <span className="mt-3 inline-flex max-w-full items-center gap-2.5 md:mt-5">
-              <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 group-hover:rotate-45 ${
-                  dark ? "bg-white text-ink" : "bg-ink text-white"
-                }`}
-              >
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-              <span className={`truncate font-mono text-[11px] ${soft}`}>{prettyUrl(url)}</span>
-            </span>
-          )}
         </div>
       </div>
 

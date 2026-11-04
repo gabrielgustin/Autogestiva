@@ -51,10 +51,6 @@ export function ChatPreview({
 
   return (
     <div aria-hidden="true" className="max-w-md">
-      <p className="eyebrow mb-4 flex items-center gap-3 text-muted-ink">
-        <span className="h-px w-8 bg-ink/25" />
-        Vista previa del mensaje
-      </p>
       <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-[0_40px_80px_-50px_rgba(11,19,34,0.45)]">
         <div className="flex items-center gap-3 bg-ink px-5 py-4 text-white">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-500">

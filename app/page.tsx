@@ -10,13 +10,12 @@ import { ProcessTimeline } from "@/components/home/process-timeline"
 import { ClientsScroller } from "@/components/home/clients-scroller"
 import { DashboardMockup } from "@/components/home/mockups"
 import { ChatPreview, type ChatField } from "@/components/home/chat-preview"
-import { ServicesGrid } from "@/components/home/services-grid"
+import { ErpFeatures, ServicesGrid } from "@/components/home/services-grid"
 import { SolutionsDeck } from "@/components/home/solutions-deck"
 import { ScrollFillText, SplitHeading, Spotlight, Tilt } from "@/components/home/effects"
 import { CtaButton, Eyebrow, Reveal, WhatsAppIcon, scrollToSection, useOnScreen } from "@/components/home/primitives"
 import {
   contact,
-  erpFeatures,
   footerSolutions,
   processSteps,
   techStack,
@@ -139,18 +138,7 @@ export default function HomePage() {
             </div>
 
             <Reveal delay={0.1} className="mt-20">
-              <div className="grid grid-cols-1 border-l border-t border-line sm:grid-cols-2 lg:grid-cols-4">
-                {erpFeatures.map((f) => {
-                  const Icon = f.icon
-                  return (
-                    <div key={f.title} className="border-b border-r border-line p-6 md:p-7">
-                      <Icon className="h-6 w-6 text-brand" />
-                      <p className="font-display mt-5 text-xl font-semibold tracking-tight">{f.title}</p>
-                      <p className="mt-1.5 text-[15px] text-muted-ink">{f.text}</p>
-                    </div>
-                  )
-                })}
-              </div>
+              <ErpFeatures />
             </Reveal>
           </div>
         </section>
@@ -225,20 +213,17 @@ export default function HomePage() {
         {/* ── Contact ──────────────────────────────────────────── */}
         <section id="contacto" className="scroll-mt-20 py-24 md:py-32">
           <div className={`${container} grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20`}>
-            <Reveal>
+            <Reveal className="flex h-full flex-col">
               <Eyebrow index="07">Contacto</Eyebrow>
               <SplitHeading className="font-display h-section mt-5 text-balance">Hablemos de tu proyecto</SplitHeading>
-              <p className="mt-6 max-w-md text-lg text-muted-ink">
-                Contanos qué necesitás y te asesoramos sin cargo. Respondemos por WhatsApp a la brevedad.
-              </p>
               {/* En pantallas grandes, el mensaje se ve armarse mientras se completa el formulario */}
-              <div className="mt-12 hidden lg:block">
+              <div className="mt-12 hidden lg:mt-auto lg:block lg:pt-12">
                 <ChatPreview nombre={nombre} apellido={apellido} consulta={consulta} active={activeField} />
               </div>
             </Reveal>
 
-            <Reveal delay={0.15}>
-              <div className="rounded-3xl border border-line bg-white p-7 shadow-[0_40px_80px_-45px_rgba(11,19,34,0.4)] md:p-10">
+            <Reveal delay={0.15} className="h-full">
+              <div className="h-full rounded-3xl border border-line bg-white p-7 shadow-[0_40px_80px_-45px_rgba(11,19,34,0.4)] md:p-10">
                 <form onSubmit={handleWhatsAppSubmit} className="space-y-7">
                   <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
                     <div>
