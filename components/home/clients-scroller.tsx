@@ -5,8 +5,8 @@ import { useInView, useOnScreen } from "@/components/home/primitives"
 
 // Cada cliente vive en una sola fila: así nunca aparece el mismo logo arriba y abajo a la vez.
 // El orden alterna colores y mantiene lejos a las marcas parecidas (los dos ITS, SEA e ITS Villada).
-const ROW_A = ["Traslados Jarabus", "Tempograss", "ITS Villada", "Mara Saúl Estética", "Cambel Red Jurídica", "Gimnasio Life Gym"]
-const ROW_B = ["SEA - Villada", "Visual Henderson", "ITS Boutique", "Zonabot Espacio Tecnológico", "Estudio Jurídico CONVS"]
+const ROW_A = ["Traslados Jarabus", "Tempograss", "ITS Villada", "FA Automotores", "Mara Saúl Estética", "Cambel Red Jurídica", "Gimnasio Life Gym"]
+const ROW_B = ["SEA - Villada", "Visual Henderson", "ITS Boutique", "Zonabot Espacio Tecnológico", "Estudio Jurídico CONVS", "Posty"]
 
 const byName = (names: string[]) =>
   names.map((name) => clients.find((c) => c.name === name)).filter((c): c is Client => Boolean(c))

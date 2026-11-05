@@ -248,6 +248,20 @@ export const clients: Client[] = [
     keepColor: true,
     tall: true,
   },
+  {
+    name: "FA Automotores",
+    logo: "/images/clients/fa-automotores.png",
+    url: "https://automotores-federicoarce.vercel.app",
+    tile: "#0a0a0a",
+    keepColor: true,
+  },
+  {
+    name: "Posty",
+    logo: "/images/clients/posty.png",
+    url: "https://www.posty.com.ar",
+    tile: "#fff6e8",
+    keepColor: true,
+  },
 ]
 
 export type Project = {
