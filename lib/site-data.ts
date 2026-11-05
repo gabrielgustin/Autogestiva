@@ -315,7 +315,7 @@ export const projects: Project[] = [
     dark: true,
   },
   {
-    name: "Federico Arce Automotores",
+    name: "FA Automotores",
     url: "https://automotores-federicoarce.vercel.app",
     type: "Concesionaria",
     description: "Catálogo de autos y motos con stock, financiación y contacto directo por WhatsApp.",
