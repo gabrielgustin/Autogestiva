@@ -284,6 +284,17 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: "Wavi",
+    url: "https://wavi-comunicacion.vercel.app",
+    type: "Agencia de comunicación",
+    description: "Sitio de una agencia de estrategia, contenido e influencers para marcas.",
+    desktop: "/images/work/wavi.jpg",
+    mobile: "/images/work/wavi-mobile.jpg",
+    bg: "#1c0fb5",
+    accent: "#ff7a1f",
+    dark: true,
+  },
+  {
     name: "Jarabus",
     url: "https://trasladosjarabus.com.ar",
     type: "E-commerce",
