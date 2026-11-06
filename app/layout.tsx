@@ -12,6 +12,7 @@ const bricolage = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.autogestiva.com.ar"),
   title: "Autogestiva | Desarrollo web y sistemas de gestión a medida",
   description:
     "Diseñamos y desarrollamos páginas web, tiendas online y sistemas de gestión (ERP) a medida. Soluciones digitales rápidas, seguras y pensadas para escalar tu negocio.",
@@ -42,7 +43,11 @@ export const metadata: Metadata = {
       "Páginas web, tiendas online y sistemas de gestión a medida que escalan con tu negocio.",
     type: "website",
     locale: "es_AR",
+    siteName: "Autogestiva",
+    url: "/",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Autogestiva · Soluciones digitales que escalan tu negocio" }],
   },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
 }
 
 export const viewport: Viewport = {
