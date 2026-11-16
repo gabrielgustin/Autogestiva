@@ -6,6 +6,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // La página de tiendas online se dio de baja: quien llegue desde Google va a páginas web
+  async redirects() {
+    return [{ source: "/tiendas-online", destination: "/paginas-web-cordoba", permanent: true }]
+  },
   images: {
     unoptimized: true,
   },

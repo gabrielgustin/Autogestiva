@@ -46,7 +46,7 @@ export const services: Service[] = [
       { title: "Diseñamos y desarrollamos", text: "Te mostramos avances y ajustamos antes de publicar." },
       { title: "Publicamos y acompañamos", text: "La dejamos online, medimos cómo funciona y seguimos mejorándola." },
     ],
-    projectNames: ["Estudio Jurídico CONVS", "Cambel Red Jurídica", "Wavi", "Zonabot", "La Comanda Tejeda"],
+    projectNames: ["Wavi", "Jarabus", "Posty", "Estudio Jurídico CONVS", "FA Automotores", "Cambel Red Jurídica", "Santa Remera", "Zonabot", "La Comanda Tejeda", "Rumbo"],
     faqs: [
       { q: "¿Cuánto cuesta una página web?", a: "Depende de cuántas secciones necesite y si lleva funciones extra, como panel de administración o formularios especiales. Contanos qué necesitás por WhatsApp y te pasamos un presupuesto claro." },
       { q: "¿En cuánto tiempo está lista?", a: "Una página institucional o una landing suele estar lista en pocas semanas. Los sitios con más funciones llevan más tiempo; lo acordamos al presupuestar." },
@@ -55,43 +55,6 @@ export const services: Service[] = [
       { q: "¿Podré modificar el contenido yo mismo?", a: "Sí, si lo necesitás armamos un panel simple para que edites textos, imágenes o novedades sin tocar código." },
     ],
     whatsapp: "Hola, quiero cotizar una página web.",
-  },
-  {
-    slug: "tiendas-online",
-    metaTitle: "Tiendas online y e-commerce a medida | Autogestiva",
-    metaDescription:
-      "Creamos tiendas online a medida para vender en todo el país: catálogo, carrito, medios de pago y panel para gestionar tus productos y pedidos. Desde Córdoba, Argentina.",
-    eyebrow: "E-commerce",
-    h1: "Tiendas online a medida para vender en todo el país",
-    intro:
-      "Desarrollamos tiendas online y sistemas de reservas o ventas con tu marca, sin comisiones por plantilla ni límites de un plan fijo. Vos administrás productos, precios y pedidos desde un panel simple.",
-    includes: [
-      { title: "Catálogo y carrito", text: "Productos con fotos, variantes y precios, con un proceso de compra claro y corto." },
-      { title: "Medios de pago", text: "Integramos los medios de pago más usados en Argentina, según tu negocio." },
-      { title: "Panel de administración", text: "Cargá productos, cambiá precios y mirá los pedidos desde cualquier lugar." },
-      { title: "Pensada para el celular", text: "La mayoría compra desde el teléfono: la tienda está diseñada primero para eso." },
-      { title: "SEO para productos", text: "Cada producto y categoría con su título y descripción para que Google los encuentre." },
-      { title: "A tu medida", text: "Si tu negocio necesita algo especial (reservas, cotizaciones, envíos propios), se desarrolla." },
-    ],
-    forWho: [
-      "Comercios que quieren vender online más allá de redes sociales y WhatsApp",
-      "Marcas que ya venden y necesitan su propio canal, sin depender de terceros",
-      "Servicios que se contratan o reservan online, como traslados o turnos",
-      "Emprendimientos que quieren una tienda con identidad propia",
-    ],
-    steps: [
-      { title: "Definimos cómo vendés", text: "Productos, formas de pago, envíos y cómo querés gestionar los pedidos." },
-      { title: "Construimos la tienda", text: "Diseño, carga inicial de catálogo y pruebas de compra completas." },
-      { title: "Lanzamos y mejoramos", text: "La publicamos, te enseñamos a usar el panel y ajustamos según cómo compran tus clientes." },
-    ],
-    projectNames: ["Jarabus"],
-    faqs: [
-      { q: "¿Cuánto cuesta una tienda online?", a: "Varía según la cantidad de productos, los medios de pago y las funciones. Escribinos y te pasamos un presupuesto a medida." },
-      { q: "¿Tengo que pagar comisión por cada venta?", a: "Nosotros no cobramos comisión sobre tus ventas. Los medios de pago sí tienen sus propias tarifas, que dependen de cada proveedor." },
-      { q: "¿Puedo cargar y cambiar productos yo mismo?", a: "Sí. La tienda incluye un panel para que administres productos, precios y pedidos sin saber programar." },
-      { q: "¿Sirve para vender un servicio y no solo productos?", a: "Sí. Hicimos, por ejemplo, un sistema para reservar traslados online. Se adapta a lo que vendas." },
-    ],
-    whatsapp: "Hola, quiero cotizar una tienda online.",
   },
   {
     slug: "sistemas-de-gestion",
@@ -121,7 +84,7 @@ export const services: Service[] = [
       { title: "Desarrollamos por etapas", text: "Primero lo esencial, probado con tu equipo, y después se suma lo demás." },
       { title: "Implementamos y damos soporte", text: "Cargamos tus datos, capacitamos al equipo y seguimos acompañando." },
     ],
-    projectNames: ["Colegio UTN", "Gestión Jurídica", "Inventarios ITS Villada", "Posty"],
+    projectNames: ["Colegio UTN", "Gestión Jurídica", "Inventarios ITS Villada", "JARA BUS Gestión"],
     faqs: [
       { q: "¿Qué es un ERP o sistema de gestión?", a: "Es un programa que reúne en un solo lugar la información y los procesos de tu negocio: clientes, ventas, stock, pagos, turnos y reportes." },
       { q: "¿Por qué a medida y no uno ya hecho?", a: "Un sistema genérico te obliga a adaptar tu forma de trabajar al programa. A medida hacemos lo contrario: el sistema se ajusta a cómo trabajás." },
@@ -158,7 +121,7 @@ export const services: Service[] = [
       { title: "La armamos y la probamos", text: "Diseñamos la carta, generamos el QR y la revisamos con vos." },
       { title: "Te enseñamos a actualizarla", text: "Aprendés a usar el panel en minutos y listo." },
     ],
-    projectNames: ["La Comanda", "Cantina Digital"],
+    projectNames: ["La Comanda", "Cantina Digital", "ITS Boutique"],
     faqs: [
       { q: "¿Cuánto cuesta una carta digital?", a: "Depende del tamaño de la carta y de las funciones que quieras, como pedidos por WhatsApp. Escribinos y te pasamos un presupuesto." },
       { q: "¿Puedo cambiar los precios yo mismo?", a: "Sí, desde un panel simple, en cualquier momento y sin costo extra por cada cambio." },

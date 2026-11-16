@@ -141,7 +141,7 @@ export function Navbar() {
                             onClick={closeAll}
                             className={`group flex items-start gap-3.5 border-line p-4 transition-colors hover:bg-paper ${
                               i % 2 === 0 ? "border-r" : ""
-                            } ${i < navServices.length - 2 ? "border-b" : ""}`}
+                            } ${i < navServices.length - (navServices.length % 2 || 2) ? "border-b" : ""}`}
                           >
                             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand transition-colors group-hover:bg-brand group-hover:text-white">
                               <Icon className="h-5 w-5" />
