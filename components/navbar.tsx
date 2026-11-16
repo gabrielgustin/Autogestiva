@@ -74,6 +74,8 @@ export function Navbar() {
     }
   }, [isMenuOpen])
 
+  const floating = scrolled && !isMenuOpen
+
   const closeAll = () => {
     setIsMenuOpen(false)
     setIsServicesOpen(false)
@@ -81,11 +83,18 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full border-b transition-all duration-300 ${
-        scrolled || isMenuOpen ? "border-line bg-paper md:bg-paper/85 md:backdrop-blur-xl" : "border-transparent bg-paper"
-      }`}
+      className={`sticky top-0 z-40 w-full transition-[padding,background-color] duration-300 ${
+        floating ? "px-3 pt-2 md:px-6" : "bg-paper"
+      } ${isMenuOpen ? "border-b border-line" : ""}`}
     >
-      <div className="mx-auto flex h-[72px] max-w-[1320px] items-center justify-between gap-4 px-5 md:px-8">
+      {/* Al scrollear la barra se despega y queda como cápsula flotante; la altura total sigue en 72px para que nada salte */}
+      <div
+        className={`relative mx-auto flex items-center justify-between gap-4 border transition-all duration-300 ${
+          floating
+            ? "h-16 max-w-[1240px] rounded-2xl border-line bg-white/95 px-4 shadow-[0_18px_40px_-24px_rgba(11,19,34,0.35)] md:bg-white/80 md:px-6 md:backdrop-blur-xl"
+            : "h-[72px] max-w-[1320px] border-transparent px-5 md:px-8"
+        }`}
+      >
         <div className="flex items-center gap-6">
           <Link className="flex shrink-0 items-center" href="/" onClick={closeAll}>
             <img
@@ -94,7 +103,9 @@ export function Navbar() {
               width={380}
               height={151}
               fetchPriority="high"
-              className="-ml-1 h-[58px] w-auto md:h-[66px]"
+              className={`-ml-1 w-auto transition-[height] duration-300 ${
+                floating ? "h-[46px] md:h-[56px]" : "h-[58px] md:h-[66px]"
+              }`}
             />
             <span className="sr-only">Autogestiva</span>
           </Link>
@@ -196,14 +207,16 @@ export function Navbar() {
         >
           {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
-      </div>
 
-      {/* Avance de lectura de la página */}
-      <span
-        ref={progressRef}
-        aria-hidden="true"
-        className="nav-progress pointer-events-none absolute inset-x-0 -bottom-px h-0.5 bg-orange-500"
-      />
+        {/* Avance de lectura de la página */}
+        <span
+          ref={progressRef}
+          aria-hidden="true"
+          className={`nav-progress pointer-events-none absolute -bottom-px h-0.5 rounded-full bg-orange-500 ${
+            floating ? "inset-x-5" : "inset-x-0"
+          }`}
+        />
+      </div>
 
       {/* Mobile menu */}
       {isMenuOpen && (
