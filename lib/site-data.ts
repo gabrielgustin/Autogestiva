@@ -8,6 +8,7 @@ import {
   MousePointerClick,
   Palette,
   Rocket,
+  ShoppingBag,
   Search,
   Server,
   ShieldCheck,
@@ -30,25 +31,25 @@ export const navServices: { icon: LucideIcon; title: string; description: string
     icon: Globe,
     title: "Páginas web",
     description: "Sitios a medida que convierten visitas en clientes.",
-    href: "/#servicios",
+    href: "/paginas-web-cordoba",
   },
   {
-    icon: Building2,
-    title: "Web Institucionales",
-    description: "Sitios profesionales para presentar tu empresa y generar confianza.",
-    href: "/#soluciones",
+    icon: ShoppingBag,
+    title: "Tiendas online",
+    description: "E-commerce a medida para vender en todo el país.",
+    href: "/tiendas-online",
   },
   {
     icon: LayoutDashboard,
     title: "ERP / Sistemas de gestión",
     description: "Plataformas internas que automatizan tus procesos.",
-    href: "/#sistemas",
+    href: "/sistemas-de-gestion",
   },
   {
     icon: BookOpen,
     title: "Catálogos digitales y Cartas",
     description: "Mostrá tus productos de forma clara y autogestionable.",
-    href: "/#soluciones",
+    href: "/cartas-digitales",
   },
 ]
 
@@ -385,10 +386,10 @@ export const projects: Project[] = [
 ]
 
 export const footerSolutions = [
-  { label: "Landing Pages", href: "#soluciones" },
-  { label: "Web Institucionales", href: "#soluciones" },
-  { label: "ERP / Sistemas de gestión", href: "#sistemas" },
-  { label: "Catálogos Digitales / Cartas Digitales", href: "#soluciones" },
+  { label: "Páginas web", href: "/paginas-web-cordoba" },
+  { label: "Tiendas online", href: "/tiendas-online" },
+  { label: "ERP / Sistemas de gestión", href: "/sistemas-de-gestion" },
+  { label: "Catálogos Digitales / Cartas Digitales", href: "/cartas-digitales" },
 ]
 
 export const prettyUrl = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "")
