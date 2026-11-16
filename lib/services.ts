@@ -46,7 +46,7 @@ export const services: Service[] = [
       { title: "Diseñamos y desarrollamos", text: "Te mostramos avances y ajustamos antes de publicar." },
       { title: "Publicamos y acompañamos", text: "La dejamos online, medimos cómo funciona y seguimos mejorándola." },
     ],
-    projectNames: ["Estudio Jurídico CONVS", "Wavi", "Zonabot", "La Comanda Tejeda"],
+    projectNames: ["Estudio Jurídico CONVS", "Cambel Red Jurídica", "Wavi", "Zonabot", "La Comanda Tejeda"],
     faqs: [
       { q: "¿Cuánto cuesta una página web?", a: "Depende de cuántas secciones necesite y si lleva funciones extra, como panel de administración o formularios especiales. Contanos qué necesitás por WhatsApp y te pasamos un presupuesto claro." },
       { q: "¿En cuánto tiempo está lista?", a: "Una página institucional o una landing suele estar lista en pocas semanas. Los sitios con más funciones llevan más tiempo; lo acordamos al presupuestar." },
@@ -121,7 +121,7 @@ export const services: Service[] = [
       { title: "Desarrollamos por etapas", text: "Primero lo esencial, probado con tu equipo, y después se suma lo demás." },
       { title: "Implementamos y damos soporte", text: "Cargamos tus datos, capacitamos al equipo y seguimos acompañando." },
     ],
-    projectNames: ["Posty", "FA Automotores"],
+    projectNames: ["Colegio UTN", "Gestión Jurídica", "Inventarios ITS Villada", "Posty"],
     faqs: [
       { q: "¿Qué es un ERP o sistema de gestión?", a: "Es un programa que reúne en un solo lugar la información y los procesos de tu negocio: clientes, ventas, stock, pagos, turnos y reportes." },
       { q: "¿Por qué a medida y no uno ya hecho?", a: "Un sistema genérico te obliga a adaptar tu forma de trabajar al programa. A medida hacemos lo contrario: el sistema se ajusta a cómo trabajás." },
