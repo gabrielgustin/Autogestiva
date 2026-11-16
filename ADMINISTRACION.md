@@ -11,20 +11,21 @@ Antes era el repo `paneladmin-autogestiva` (dominio aparte).
 
 | Variable | Para qué |
 | --- | --- |
-| `SUPABASE_URL` | URL del proyecto de Supabase (tabla `clients`, Auth y `admin_users`) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clave secreta de Supabase (solo servidor) |
+| `DATABASE_URL` | Conexión a la base de Neon `autogestiva-neon` (tablas `clients` y `admin_users`). La carga sola la integración de Neon en Vercel |
 | `NEON_API_KEY` | API key de Neon para leer costos e infraestructura |
-| `BETTER_AUTH_SECRET` | Opcional. Secreto de sesión; si falta se deriva de la clave de Supabase |
+| `BETTER_AUTH_SECRET` | Opcional. Secreto de sesión; si falta se deriva de `DATABASE_URL` |
 
 Después de cargarlas hay que hacer Redeploy. Nunca subir claves a Git.
 
 ## Base de datos
 
-Los scripts de Supabase están en `supabase/` (`clients.sql` y `admin_users.sql`). Ya están aplicados en el proyecto en uso.
+El esquema está en `db/schema.sql` (Postgres en Neon). Hasta el 2026-11-16 los datos vivían en Supabase; se migraron a Neon con el mismo id de cada cliente.
+
+El login compara la contraseña contra el hash bcrypt de `admin_users`. Para sumar otro admin, ver las instrucciones al final de `db/schema.sql`.
 
 ## Código
 
 - Páginas: `app/administracion/`
 - Componentes: `components/admin/`
-- Lógica de servidor (sesión, Supabase, Neon): `lib/admin/`
+- Lógica de servidor (sesión, base de datos, API de Neon): `lib/admin/`
 - Los colores del panel llevan el prefijo `adm-` para no mezclarse con los de la web pública.

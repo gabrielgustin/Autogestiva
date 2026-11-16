@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/admin/require-admin'
-import { supabaseAdmin, toClient, isSupabaseConfigured, type SupabaseClientRow } from '@/lib/admin/supabase-admin'
+import { CLIENT_COLUMNS, isDbConfigured, sql, toClient, type ClientRow } from '@/lib/admin/db'
 import { COLUMNS, COLUMN_LABELS } from '@/lib/admin/clients-shared'
 
 export const dynamic = 'force-dynamic'
@@ -14,16 +14,16 @@ function csvField(value: string) {
 export async function GET() {
   const denied = await requireAdmin()
   if (denied) return denied
-  if (!isSupabaseConfigured()) return NextResponse.json({ error: 'Supabase no está configurado' }, { status: 503 })
+  if (!isDbConfigured()) return NextResponse.json({ error: 'La base de datos no está configurada' }, { status: 503 })
 
-  const { data, error } = await supabaseAdmin
-    .from('clients')
-    .select('id,nombre,apellido,empresa,producto,dominio,dominio_vencimiento,mail,telefono,servidor,base_datos,plan,metodo_pago,ultimo_pago,proximo_pago,orden')
-    .order('orden', { ascending: true, nullsFirst: false })
-    .order('created_at', { ascending: false })
-  if (error) return NextResponse.json({ error: 'No se pudo generar el respaldo' }, { status: 500 })
-
-  const rows = (data as SupabaseClientRow[]).map(toClient)
+  let rows: ReturnType<typeof toClient>[]
+  try {
+    const data = await sql().query(`select ${CLIENT_COLUMNS} from clients order by orden asc nulls last, created_at desc`)
+    rows = (data as ClientRow[]).map(toClient)
+  } catch (error) {
+    console.error('[admin] clients export failed:', error)
+    return NextResponse.json({ error: 'No se pudo generar el respaldo' }, { status: 500 })
+  }
   const lines = [COLUMNS.map((column) => csvField(COLUMN_LABELS[column])).join(',')]
   for (const row of rows) lines.push(COLUMNS.map((column) => csvField(String(row[column] ?? ''))).join(','))
 

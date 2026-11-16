@@ -42,8 +42,6 @@
     "@radix-ui/react-toggle": "latest",
     "@radix-ui/react-toggle-group": "latest",
     "@radix-ui/react-tooltip": "latest",
-    "@supabase/ssr": "latest",
-    "@supabase/supabase-js": "latest",
     "@tailwindcss/postcss": "^4.1.9",
     "@vercel/analytics": "1.6.1",
     "@vercel/connect": "^2.3.3",
@@ -83,13 +81,13 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^24",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8.5",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^5",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
-    "@types/pg": "^8.23.1"
+    "postcss": "^8.5",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5"
   }
 }

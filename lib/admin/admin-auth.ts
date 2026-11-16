@@ -1,28 +1,19 @@
-import { createClient } from '@supabase/supabase-js'
-import { supabaseAdmin, isSupabaseConfigured, supabaseUrl } from '@/lib/admin/supabase-admin'
+import bcrypt from 'bcryptjs'
+import { isDbConfigured, sql } from '@/lib/admin/db'
 
-// Checks the credentials against Supabase Auth and that the user is listed in public.admin_users.
-// Returns the admin's user id, or null when the credentials or the permission are wrong.
+// Hash de relleno: si el email no existe igual se compara, así el tiempo de respuesta no delata qué emails están dados de alta.
+const DUMMY_HASH = '$2a$10$CwTycUXWue0Thq9StjUM0uJ8.Gl0XcP5ZxdSMIw6hnGWT6d8sFP0a'
+
+// Checks the credentials against public.admin_users (bcrypt hashes migrated from Supabase Auth).
+// Returns the admin's id, or null when the credentials are wrong.
 export async function verifyAdminCredentials(email: string, password: string) {
   if (!email.trim() || !password) return null
-  if (!isSupabaseConfigured()) throw new Error('Supabase no está configurado')
+  if (!isDbConfigured()) throw new Error('La base de datos no está configurada')
 
-  // Throwaway client so the sign-in never leaves a session behind in the shared admin client.
-  const auth = createClient(
-    supabaseUrl(),
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } },
-  )
-  const { data, error } = await auth.auth.signInWithPassword({ email: email.trim().toLowerCase(), password })
-  if (error) {
-    // Wrong credentials are a normal outcome; anything else (network, 5xx) is a real failure.
-    if (error.status && (error.status >= 500 || error.status === 404)) throw error
-    return null
-  }
-  const userId = data.user?.id
-  if (!userId) return null
-
-  const { data: admin, error: adminError } = await supabaseAdmin.from('admin_users').select('user_id').eq('user_id', userId).maybeSingle()
-  if (adminError) throw adminError
-  return admin ? userId : null
+  const [admin] = (await sql().query('select id, password_hash from admin_users where email = $1', [email.trim().toLowerCase()])) as {
+    id: string
+    password_hash: string
+  }[]
+  const ok = await bcrypt.compare(password, admin?.password_hash ?? DUMMY_HASH)
+  return admin && ok ? admin.id : null
 }

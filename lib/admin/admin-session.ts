@@ -10,9 +10,9 @@ export const CLOSING_GRACE_SECONDS = 15
 function secret() {
   const explicit = process.env.BETTER_AUTH_SECRET
   if (explicit) return explicit
-  // Falls back to a key derived from the Supabase service key so no extra secret is needed.
-  const base = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!base) throw new Error('Falta BETTER_AUTH_SECRET o SUPABASE_SERVICE_ROLE_KEY')
+  // Falls back to a key derived from the database URL (it holds the DB password) so no extra secret is needed.
+  const base = process.env.DATABASE_URL
+  if (!base) throw new Error('Falta BETTER_AUTH_SECRET o DATABASE_URL')
   return createHash('sha256').update(`admin-session:${base}`).digest('hex')
 }
 

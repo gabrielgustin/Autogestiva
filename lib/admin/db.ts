@@ -1,32 +1,20 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { neon, type NeonQueryFunction } from '@neondatabase/serverless'
 
-let client: SupabaseClient | null = null
+let client: NeonQueryFunction<false, false> | null = null
 
-// Deja solo el origen (https://xxxx.supabase.co): si la URL se pegó con "/rest/v1" o una barra final, igual funciona.
-export function supabaseUrl() {
-  const raw = (process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').trim().replace(/^["']|["']$/g, '')
-  try {
-    return new URL(raw).origin
-  } catch {
-    return raw
-  }
+export function isDbConfigured() {
+  return Boolean(process.env.DATABASE_URL)
 }
 
 // Created on first use so a missing env var returns a 503 from the route guard instead of crashing on import.
-function getClient() {
-  client ??= createClient(
-    supabaseUrl(),
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } },
-  )
+export function sql() {
+  client ??= neon(process.env.DATABASE_URL!)
   return client
 }
 
-export const supabaseAdmin = new Proxy({} as SupabaseClient, {
-  get: (_target, prop) => Reflect.get(getClient(), prop),
-})
+export const CLIENT_COLUMNS = 'id,nombre,apellido,empresa,producto,dominio,dominio_vencimiento::text,mail,telefono,servidor,base_datos,plan,metodo_pago,ultimo_pago::text,proximo_pago::text,orden'
 
-export type SupabaseClientRow = {
+export type ClientRow = {
   id: string
   nombre: string
   apellido: string
@@ -45,7 +33,7 @@ export type SupabaseClientRow = {
   orden: number | null
 }
 
-export function toClient(row: SupabaseClientRow) {
+export function toClient(row: ClientRow) {
   return { row: row.id, nombre: row.nombre, apellido: row.apellido, empresa: row.empresa ?? '', producto: row.producto ?? '', dominio: row.dominio ?? '', dominioVencimiento: row.dominio_vencimiento ?? '', mail: row.mail ?? '', telefono: row.telefono ?? '', servidor: row.servidor ?? '', baseDatos: row.base_datos ?? '', plan: row.plan ?? '', metodoPago: row.metodo_pago ?? '', ultimoPago: row.ultimo_pago ?? '', proximoPago: row.proximo_pago ?? '', orden: row.orden ?? 0 }
 }
 
@@ -70,11 +58,6 @@ export function toRow(input: Record<string, unknown>): { row: Record<string, str
       dominio_vencimiento: dates.dominio_vencimiento || null, mail: text(input.mail) || null, telefono: text(input.telefono) || null,
       servidor: text(input.servidor) || null, base_datos: text(input.baseDatos) || null, plan: text(input.plan) || null,
       metodo_pago: text(input.metodoPago) || null, ultimo_pago: dates.ultimo_pago || null, proximo_pago: dates.proximo_pago || null,
-      updated_at: new Date().toISOString(),
     },
   }
-}
-
-export function isSupabaseConfigured() {
-  return Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY && (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL))
 }
