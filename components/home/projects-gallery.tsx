@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { ArrowUpRight } from "lucide-react"
-import { projects, prettyUrl, type Project } from "@/lib/site-data"
+import { homeProjects as projects, prettyUrl, type Project } from "@/lib/site-data"
 import { Eyebrow } from "@/components/home/primitives"
 
 const NAV_HEIGHT = 72
@@ -81,6 +81,9 @@ function Browser({
 /* La misma composición en todas las tarjetas: navegador al fondo, teléfono al frente */
 function Devices({ project }: { project: Project }) {
   const { name, desktop, desktopUrl, mobile, logo, url } = project
+  // Las direcciones de prueba (*.vercel.app) no se muestran: solo los dominios propios
+  const address = desktopUrl ?? (url ? prettyUrl(url) : undefined)
+  const shownUrl = address?.includes("vercel.app") ? undefined : address
 
   if (logo) {
     return (
@@ -105,7 +108,7 @@ function Devices({ project }: { project: Project }) {
           <Browser
             src={desktop}
             alt={desktopUrl ? `Backoffice de ${name}` : `Sitio web de ${name}`}
-            url={desktopUrl ?? (url ? prettyUrl(url) : undefined)}
+            url={shownUrl}
             className="absolute right-[-8%] top-[10%] w-[86%] transition-transform duration-700 ease-out group-hover:-translate-y-1.5"
           />
         </div>

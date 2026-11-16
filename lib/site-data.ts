@@ -279,7 +279,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     name: "Wavi",
-    url: "https://wavi-comunicacion.vercel.app",
+    url: "https://somoswavi.com",
     type: "Agencia de comunicación",
     description: "Sitio de una agencia de estrategia, contenido e influencers para marcas.",
     desktop: "/images/work/wavi.jpg",
@@ -461,6 +461,27 @@ export const projects: Project[] = [
     dark: true,
   },
 ]
+
+// Galería del home: selección y orden (de más a menos llamativo). Los proyectos que no están acá
+// aparecen solo en las páginas de cada servicio.
+const HOME_ORDER = [
+  "Wavi",
+  "Posty",
+  "FA Automotores",
+  "Cambel Red Jurídica",
+  "Santa Remera",
+  "Rumbo",
+  "Cantina Digital",
+  "La Comanda",
+  "Jarabus",
+  "Zonabot",
+  "La Comanda Tejeda",
+]
+export const homeProjects = HOME_ORDER.map((name) => {
+  const project = projects.find((p) => p.name === name)
+  if (!project) throw new Error(`HOME_ORDER: no existe el proyecto "${name}"`)
+  return project
+})
 
 export const footerSolutions = [
   { label: "Páginas web", href: "/paginas-web-cordoba" },
