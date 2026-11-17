@@ -411,6 +411,7 @@ export const projects: Project[] = [
     name: "Cantina Digital",
     url: "https://www.grupoalgarbe.com.ar",
     type: "Catálogo digital",
+    description: "Catálogo y pedidos online de la cantina del colegio: menú del día, snacks, bebidas y fotocopias.",
     desktop: "/images/work/cantina-savio.jpg",
     mobile: "/images/work/cantina-savio-mobile.jpg",
     bg: "#0f2a52",
