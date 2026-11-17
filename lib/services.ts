@@ -46,7 +46,7 @@ export const services: Service[] = [
       { title: "Diseñamos y desarrollamos", text: "Te mostramos avances y ajustamos antes de publicar." },
       { title: "Publicamos y acompañamos", text: "La dejamos online, medimos cómo funciona y seguimos mejorándola." },
     ],
-    projectNames: ["Wavi", "Jarabus", "Posty", "Estudio Jurídico CONVS", "FA Automotores", "Cambel Red Jurídica", "Santa Remera", "Zonabot", "La Comanda Tejeda", "Rumbo", "Life Gym", "Mara Saúl Estética", "PipetLabor"],
+    projectNames: ["Wavi", "Posty", "Rumbo", "Santa Remera", "FA Automotores", "Jarabus", "Estudio Jurídico CONVS", "Cambel Red Jurídica", "Zonabot", "La Comanda Tejeda", "PipetLabor", "Mara Saúl Estética", "Life Gym"],
     faqs: [
       { q: "¿Cuánto cuesta una página web?", a: "Depende de cuántas secciones necesite y si lleva funciones extra, como panel de administración o formularios especiales. Contanos qué necesitás por WhatsApp y te pasamos un presupuesto claro." },
       { q: "¿En cuánto tiempo está lista?", a: "Una página institucional o una landing suele estar lista en pocas semanas. Los sitios con más funciones llevan más tiempo; lo acordamos al presupuestar." },

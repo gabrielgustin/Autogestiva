@@ -32,7 +32,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const url = `${SITE_URL}/${service.slug}`
   const whatsapp = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(service.whatsapp)}`
-  const shown = projects.filter((p) => service.projectNames.includes(p.name))
+  const shown = service.projectNames.flatMap((n) => projects.filter((p) => p.name === n))
   const others = services.filter((s) => s.slug !== service.slug)
 
   // Datos estructurados: migas de pan, el servicio y las preguntas frecuentes
