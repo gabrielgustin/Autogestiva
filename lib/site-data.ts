@@ -293,7 +293,7 @@ export const projects: Project[] = [
     url: "https://trasladosjarabus.com.ar",
     type: "E-commerce",
     description: "Tienda online con reserva y venta de pasajes de forma autogestionable.",
-    desktop: "/images/work/jarabus-admin.jpg",
+    desktop: "/images/work/jarabus-web.jpg",
     mobile: "/images/work/jarabus-mobile.jpg",
     bg: "#100506",
     accent: "#e02424",
