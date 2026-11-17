@@ -10,6 +10,7 @@ const nextConfig = {
   async redirects() {
     return [{ source: "/tiendas-online", destination: "/paginas-web-cordoba", permanent: true }]
   },
+  devIndicators: false,
   images: {
     unoptimized: true,
   },
