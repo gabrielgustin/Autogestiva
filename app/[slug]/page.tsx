@@ -155,9 +155,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {shown.map((p) => (
                   <article key={p.name} className="overflow-hidden rounded-2xl border border-line bg-white">
-                    {p.desktop && (
+                    {(p.serviceDesktop ?? p.desktop) && (
                       <img
-                        src={p.desktop}
+                        src={p.serviceDesktop ?? p.desktop}
                         alt={`Captura del sitio de ${p.name}, realizado por Autogestiva`}
                         loading="lazy"
                         decoding="async"

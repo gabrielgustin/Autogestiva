@@ -268,6 +268,8 @@ export type Project = {
   desktop?: string
   /** Dirección que se muestra en el navegador del mockup, si no es la del sitio */
   desktopUrl?: string
+  // Imagen distinta para las páginas de servicio (si no, se usa desktop)
+  serviceDesktop?: string
   mobile?: string
   logo?: string
   /** Colores tomados de la marca de cada cliente */
@@ -336,7 +338,8 @@ export const projects: Project[] = [
     url: "https://lacomanda-xi.vercel.app",
     type: "Carta digital",
     description: "Menú o catálogo autogestionable, ideal para gastronomía y comercios.",
-    desktop: "/images/work/la-comanda-carta.jpg",
+    desktop: "/images/work/la-comanda-web.jpg",
+    serviceDesktop: "/images/work/la-comanda-carta.jpg",
     mobile: "/images/work/la-comanda-mobile.jpg",
     bg: "#efe1cd",
     accent: "#4a2c20",
