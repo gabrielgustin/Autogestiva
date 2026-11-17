@@ -280,7 +280,7 @@ export const projects: Project[] = [
   {
     name: "Wavi",
     url: "https://somoswavi.com",
-    type: "Agencia de comunicación",
+    type: "Página web",
     description: "Sitio de una agencia de estrategia, contenido e influencers para marcas.",
     desktop: "/images/work/wavi.jpg",
     mobile: "/images/work/wavi-mobile.jpg",
@@ -355,7 +355,7 @@ export const projects: Project[] = [
   {
     name: "FA Automotores",
     url: "https://automotores-federicoarce.vercel.app",
-    type: "Concesionaria",
+    type: "Página web",
     description: "Catálogo de autos y motos con stock, financiación y contacto directo por WhatsApp.",
     desktop: "/images/work/federico-arce.jpg",
     mobile: "/images/work/federico-arce-mobile.jpg",
