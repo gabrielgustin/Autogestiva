@@ -130,8 +130,8 @@ export function Navbar() {
 
               {isServicesOpen && (
                 <div className="absolute left-0 top-full pt-3">
-                  <div className="animate-rise-in w-[min(680px,92vw)] overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_70px_-25px_rgba(11,19,34,0.4)]">
-                    <div className="grid grid-cols-2">
+                  <div className="animate-rise-in w-[min(380px,92vw)] overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_70px_-25px_rgba(11,19,34,0.4)]">
+                    <div className="grid grid-cols-1">
                       {navServices.map((service, i) => {
                         const Icon = service.icon
                         return (
@@ -140,8 +140,8 @@ export function Navbar() {
                             href={service.href}
                             onClick={closeAll}
                             className={`group flex items-start gap-3.5 border-line p-4 transition-colors hover:bg-paper ${
-                              i % 2 === 0 ? "border-r" : ""
-                            } ${i < navServices.length - (navServices.length % 2 || 2) ? "border-b" : ""}`}
+                              i < navServices.length - 1 ? "border-b" : ""
+                            }`}
                           >
                             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand transition-colors group-hover:bg-brand group-hover:text-white">
                               <Icon className="h-5 w-5" />
