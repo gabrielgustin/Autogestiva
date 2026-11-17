@@ -393,6 +393,7 @@ export const projects: Project[] = [
     name: "Zonabot",
     url: "https://www.zonabot.com.ar",
     type: "Web institucional",
+    description: "Sitio de un espacio de robótica y programación para chicos, con programas, horarios e inscripción.",
     desktop: "/images/work/zonabot.jpg",
     mobile: "/images/work/zonabot-mobile.jpg",
     bg: "#f5d9a8",
