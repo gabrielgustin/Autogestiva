@@ -475,7 +475,6 @@ const HOME_ORDER = [
   "La Comanda",
   "Jarabus",
   "Zonabot",
-  "La Comanda Tejeda",
 ]
 export const homeProjects = HOME_ORDER.map((name) => {
   const project = projects.find((p) => p.name === name)
