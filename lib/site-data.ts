@@ -336,7 +336,7 @@ export const projects: Project[] = [
     url: "https://lacomanda-xi.vercel.app",
     type: "Carta digital",
     description: "Menú o catálogo autogestionable, ideal para gastronomía y comercios.",
-    desktop: "/images/work/la-comanda-carta.jpg",
+    desktop: "/images/work/la-comanda-web.jpg",
     mobile: "/images/work/la-comanda-mobile.jpg",
     bg: "#efe1cd",
     accent: "#4a2c20",
