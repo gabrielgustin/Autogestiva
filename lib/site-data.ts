@@ -349,6 +349,7 @@ export const projects: Project[] = [
     name: "Estudio Jurídico CONVS",
     url: "https://estudiojuridicoconvs.com.ar",
     type: "Página web",
+    description: "Sitio de un estudio jurídico con especialidades, profesionales, publicaciones y contacto.",
     desktop: "/images/work/convs.jpg",
     mobile: "/images/work/convs-mobile.jpg",
     bg: "#2d3127",
