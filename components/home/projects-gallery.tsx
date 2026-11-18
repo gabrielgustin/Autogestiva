@@ -1,12 +1,9 @@
 "use client"
 
-import type React from "react"
 import { useEffect, useRef, useState } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { homeProjects as projects, prettyUrl, type Project } from "@/lib/site-data"
 import { Eyebrow } from "@/components/home/primitives"
-
-const NAV_HEIGHT = 72
 
 /* ── Dispositivos ─────────────────────────────────────────────────────── */
 
@@ -99,12 +96,10 @@ function Devices({ project }: { project: Project }) {
     )
   }
 
-  // Cada dispositivo vive en su propia capa: al desplazarse la galería se mueven a distinta velocidad
-  // (data-depth = cuántos píxeles se corre por pantalla recorrida), lo que da sensación de profundidad.
   return (
     <>
       {desktop && (
-        <div data-depth="54" className="absolute inset-0 will-change-transform">
+        <div className="absolute inset-0">
           <Browser
             src={desktop}
             alt={desktopUrl ? `Backoffice de ${name}` : `Sitio web de ${name}`}
@@ -114,7 +109,7 @@ function Devices({ project }: { project: Project }) {
         </div>
       )}
       {mobile && (
-        <div data-depth="-30" className="absolute inset-0 will-change-transform">
+        <div className="absolute inset-0">
           <IPhone
             src={mobile}
             alt={`${name} en el teléfono`}
@@ -138,7 +133,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     <Tag
       {...(url ? { href: url, target: "_blank", rel: "noopener noreferrer" } : {})}
       data-card
-      className={`group relative flex h-full w-[min(88vw,540px)] shrink-0 flex-col overflow-hidden rounded-3xl md:w-[min(78vw,880px)] md:flex-row ${text}`}
+      className={`group relative flex h-full snap-start w-[min(88vw,540px)] shrink-0 flex-col overflow-hidden rounded-3xl md:w-[min(78vw,880px)] md:flex-row ${text}`}
       style={{ backgroundColor: bg }}
     >
       {/* Luz con el color de marca del cliente */}
@@ -188,151 +183,40 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   )
 }
 
-/* ── Galería ──────────────────────────────────────────────────────────── */
+/* ── Galería: carrusel con flechas y scroll-snap ──────────────────────── */
 
 export function ProjectsGallery() {
   const sectionRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
-  const barRef = useRef<HTMLSpanElement>(null)
   const cursorRef = useRef<HTMLDivElement>(null)
-  const [pinned, setPinned] = useState(false)
-  const [distance, setDistance] = useState(0)
-  const countRef = useRef<HTMLSpanElement>(null)
-  // Con "scroll-driven animations" el navegador mueve la galería en el mismo hilo que hace el scroll:
-  // queda perfectamente sincronizada en ambos sentidos. Donde no existe, se mueve con JavaScript.
-  const [native, setNative] = useState(false)
+  const [current, setCurrent] = useState(0)
 
-  // La galería se fija y el scroll vertical la desplaza en horizontal, en cualquier tamaño de pantalla.
-  // Solo con "reducir movimiento" se deja como carrusel deslizable.
+  // Tarjeta que está al comienzo de la tira (la más cercana al borde izquierdo)
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setNative(typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()"))
-
-    let lastWidth = -1
-    const measure = () => {
-      const track = trackRef.current
-      const canPin = !reduce.matches
-      setPinned(canPin)
-      if (track) setDistance(canPin ? Math.max(0, track.scrollWidth - window.innerWidth) : 0)
+    const track = trackRef.current
+    if (!track) return
+    const onScroll = () => {
+      const cards = Array.from(track.querySelectorAll<HTMLElement>("[data-card]"))
+      const max = track.scrollWidth - track.clientWidth
+      if (track.scrollLeft >= max - 4) return setCurrent(cards.length - 1)
+      let best = 0
+      cards.forEach((card, i) => {
+        if (Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft) < Math.abs(cards[best].offsetLeft - track.offsetLeft - track.scrollLeft)) best = i
+      })
+      setCurrent(best)
     }
-    // En móvil, mostrar u ocultar la barra del navegador dispara "resize" sin cambiar el ancho: se ignora
-    const onResize = () => {
-      if (window.innerWidth === lastWidth) return
-      lastWidth = window.innerWidth
-      measure()
-    }
-
-    lastWidth = window.innerWidth
-    measure()
-    window.addEventListener("resize", onResize)
-    reduce.addEventListener("change", measure)
-    document.fonts?.ready.then(measure)
-    return () => {
-      window.removeEventListener("resize", onResize)
-      reduce.removeEventListener("change", measure)
-    }
+    onScroll()
+    track.addEventListener("scroll", onScroll, { passive: true })
+    return () => track.removeEventListener("scroll", onScroll)
   }, [])
 
-  useEffect(() => {
-    const section = sectionRef.current
+  const go = (dir: 1 | -1) => {
     const track = trackRef.current
-    if (!section || !track) return
-
-    // El contador solo se actualiza cuando cambia de proyecto, nunca en cada fotograma
-    let lastCurrent = -1
-    const setProgress = (progress: number, moveBar: boolean) => {
-      if (moveBar && barRef.current) barRef.current.style.transform = `scaleX(${progress})`
-      const next = Math.min(projects.length, Math.round(progress * (projects.length - 1)) + 1)
-      if (next !== lastCurrent) {
-        lastCurrent = next
-        // se escribe directo en el DOM: cambiar de proyecto no vuelve a renderizar la galería
-        if (countRef.current) countRef.current.textContent = String(next).padStart(2, "0")
-      }
-    }
-
-    if (!pinned) {
-      track.style.transform = ""
-      track.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => (el.style.transform = ""))
-      const onTrackScroll = () => {
-        const max = track.scrollWidth - track.clientWidth
-        setProgress(max > 0 ? track.scrollLeft / max : 0, true)
-      }
-      onTrackScroll()
-      track.addEventListener("scroll", onTrackScroll, { passive: true })
-      return () => track.removeEventListener("scroll", onTrackScroll)
-    }
-
-    // Posición del inicio de la sección en el documento: se mide una vez, no en cada scroll
-    let sectionTop = 0
-    // Capas con profundidad de cada tarjeta y dónde cae el centro de la tarjeta dentro de la tira
-    let layers: { el: HTMLElement; depth: number; center: number }[] = []
-    let viewportWidth = window.innerWidth
-    const locate = () => {
-      sectionTop = section.getBoundingClientRect().top + window.scrollY
-      viewportWidth = window.innerWidth
-      layers = Array.from(track.querySelectorAll<HTMLElement>("[data-card]")).flatMap((card) => {
-        const center = card.offsetLeft + card.offsetWidth / 2
-        return Array.from(card.querySelectorAll<HTMLElement>("[data-depth]")).map((el) => ({
-          el,
-          depth: Number(el.dataset.depth),
-          center,
-        }))
-      })
-    }
-    // Con scroll-driven animations, cada capa recibe su recorrido completo (inicio y fin) y el navegador la
-    // mueve en el mismo hilo que la galería: las dos van siempre a la par, sin desfase ni tirones.
-    const placeLayers = () => {
-      const travel = viewportWidth > 0 ? distance / viewportWidth : 0
-      for (const layer of layers) {
-        const from = (layer.depth * (layer.center - viewportWidth / 2)) / viewportWidth
-        layer.el.style.setProperty("--p0", `${from.toFixed(1)}px`)
-        layer.el.style.setProperty("--p1", `${(from - layer.depth * travel).toFixed(1)}px`)
-      }
-    }
-    const parallax = (progress: number) => {
-      for (const layer of layers) {
-        // -1 = la tarjeta está una pantalla a la izquierda del centro, +1 = una pantalla a la derecha
-        const rel = Math.max(-1.3, Math.min(1.3, (layer.center - progress * distance - viewportWidth / 2) / viewportWidth))
-        layer.el.style.transform = `translate3d(${(rel * layer.depth).toFixed(1)}px, 0, 0)`
-      }
-    }
-    const progressNow = () =>
-      distance > 0 ? Math.min(1, Math.max(0, (window.scrollY + NAV_HEIGHT - sectionTop) / distance)) : 0
-
-    let frame = 0
-    const update = () => {
-      frame = 0
-      const progress = progressNow()
-      if (!native) {
-        track.style.transform = `translate3d(${-progress * distance}px, 0, 0)`
-        parallax(progress)
-      }
-      setProgress(progress, !native)
-    }
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-    const onResize = () => {
-      locate()
-      if (native) placeLayers()
-      onScroll()
-    }
-
-    if (native) {
-      track.style.transform = ""
-      if (barRef.current) barRef.current.style.transform = ""
-    }
-    locate()
-    if (native) placeLayers()
-    update()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    window.addEventListener("resize", onResize)
-    return () => {
-      window.removeEventListener("scroll", onScroll)
-      window.removeEventListener("resize", onResize)
-      if (frame) cancelAnimationFrame(frame)
-    }
-  }, [pinned, distance, native])
+    const card = track?.querySelector<HTMLElement>("[data-card]")
+    if (!track || !card) return
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0
+    track.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: "smooth" })
+  }
 
   // Cursor propio sobre las tarjetas con enlace: un círculo "Ver sitio" que sigue al mouse
   useEffect(() => {
@@ -389,48 +273,39 @@ export function ProjectsGallery() {
     }
   }, [])
 
-  const viewport = `calc(100svh - ${NAV_HEIGHT}px)`
-  const timeline = pinned && native
+  const roundBtn =
+    "flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-ink text-ink transition-colors hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30 md:h-[46px] md:w-[46px]"
 
   return (
-    <section
-      id="proyectos"
-      ref={sectionRef}
-      className={`relative scroll-mt-20 border-t border-line bg-white ${timeline ? "gallery-timeline" : ""}`}
-      style={
-        pinned
-          ? ({ height: `calc(${viewport} + ${distance}px)`, "--gallery-distance": `${distance}px` } as React.CSSProperties)
-          : undefined
-      }
-    >
-      <div
-        className={`flex flex-col justify-center overflow-hidden ${pinned ? "sticky" : "py-10"}`}
-        style={pinned ? { top: NAV_HEIGHT, height: viewport } : undefined}
-      >
-        <div className="mx-auto flex w-full max-w-[1320px] items-end justify-between gap-4 px-5 md:px-8">
+    <section id="proyectos" ref={sectionRef} className="relative scroll-mt-20 border-t border-line bg-white py-16 md:py-24">
+      <div className="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+        <div className="flex items-end justify-between gap-4">
           <div>
             <Eyebrow index="01">Portfolio</Eyebrow>
             <h2 className="font-display h-section mt-3">Últimos proyectos</h2>
           </div>
           <div className="flex shrink-0 items-center gap-3 pb-1.5">
-            <span className="font-mono text-xs tabular-nums text-muted-ink">
-              <span ref={countRef}>01</span> / {String(projects.length).padStart(2, "0")}
+            <button type="button" aria-label="Proyecto anterior" onClick={() => go(-1)} disabled={current === 0} className={roundBtn}>
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <span className="min-w-16 text-center font-mono text-sm tabular-nums text-ink" aria-live="polite">
+              {String(current + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
             </span>
-            <span className="hidden h-[3px] w-24 overflow-hidden rounded-full bg-ink/10 min-[420px]:block md:w-40">
-              <span
-                ref={barRef}
-                className={`block h-full w-full origin-left rounded-full bg-brand ${timeline ? "gallery-bar" : ""}`}
-                style={timeline ? undefined : { transform: "scaleX(0)" }}
-              />
-            </span>
+            <button
+              type="button"
+              aria-label="Proyecto siguiente"
+              onClick={() => go(1)}
+              disabled={current === projects.length - 1}
+              className={roundBtn}
+            >
+              <ArrowRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
 
         <div
           ref={trackRef}
-          className={`mt-5 flex h-[clamp(360px,calc(100svh-300px),440px)] gap-4 px-5 will-change-transform md:mt-8 md:h-[clamp(380px,calc(100svh-260px),540px)] md:gap-6 md:px-8 lg:px-[max(2rem,calc((100vw-1320px)/2+2rem))] ${
-            pinned ? "w-max" : "snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          } ${timeline ? "gallery-track" : ""}`}
+          className="mt-6 flex h-[clamp(360px,calc(100svh-300px),440px)] snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain rounded-3xl [scrollbar-width:none] md:mt-8 md:h-[clamp(380px,calc(100svh-260px),540px)] md:gap-6 [&::-webkit-scrollbar]:hidden"
         >
           {projects.map((project, i) => (
             <ProjectCard key={project.name} project={project} index={i} />
