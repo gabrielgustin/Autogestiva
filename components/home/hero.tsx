@@ -111,8 +111,7 @@ function HeroContent({
               plan ? "text-white/85" : "text-muted-ink"
             }`}
           >
-            No trabajamos con plantillas genéricas. Diseñamos y desarrollamos páginas web, tiendas online y sistemas
-            de gestión a medida, pensados para tus procesos, tus usuarios y tus objetivos.
+            Sin plantillas genéricas: páginas web, tiendas online y sistemas de gestión a medida.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">

@@ -64,25 +64,25 @@ export const services: { icon: LucideIcon; title: string; description: string }[
     icon: Palette,
     title: "Diseño web personalizado",
     description:
-      "Trabajamos desde el wireframe hasta la identidad visual final. Pensamos cada sitio como una herramienta de marca: clara, funcional y alineada con tus objetivos.",
+      "Del boceto a la identidad final, con tu marca al centro.",
   },
   {
     icon: Search,
     title: "Optimización SEO",
     description:
-      "Optimizamos estructura, velocidad y contenido para que Google (y tus clientes) te encuentren. Tráfico orgánico de calidad y mejores posiciones.",
+      "Más visibles en Google, con mejor tráfico.",
   },
   {
     icon: Smartphone,
     title: "Diseño responsive",
     description:
-      "Cada sitio se adapta a todos los dispositivos. Optimizamos la experiencia en mobile, tablet y desktop para que naveguen sin trabas.",
+      "Se ve y funciona bien en celular, tablet y PC.",
   },
   {
     icon: Server,
     title: "Hosting privado",
     description:
-      "Servidores propios con monitoreo 24/7. Tiempos de carga rápidos, máxima seguridad y soporte especializado. Tu sitio siempre online.",
+      "Rápido, seguro y siempre online, con monitoreo 24/7.",
   },
 ]
 
@@ -98,21 +98,21 @@ export const solutions: Solution[] = [
   {
     title: "Páginas Webs",
     description:
-      "Páginas profesionales diseñadas para captar clientes y convertir visitas en ventas. Perfectas para lanzar productos, servicios o campañas puntuales.",
+      "Páginas que captan clientes y convierten visitas en ventas.",
     icon: Globe,
     features: ["Diseño orientado a conversión", "Responsive y veloz", "Formularios de contacto", "SEO optimizado"],
   },
   {
     title: "Webs Institucionales",
     description:
-      "Sitios corporativos que presentan tu empresa, servicios y equipo de forma profesional. Dan presencia formal y confianza a tu marca en internet.",
+      "Presentá tu empresa con presencia profesional y confianza.",
     icon: Building2,
     features: ["Presencia profesional", "Secciones institucionales", "Información de contacto", "Diseño a tu marca"],
   },
   {
     title: "ERP / Sistemas de gestión",
     description:
-      "Plataformas internas a medida que automatizan tareas y digitalizan tus procesos clave. Menos trabajo manual, más control y eficiencia.",
+      "Automatizá tus procesos: menos trabajo manual, más control.",
     icon: LayoutDashboard,
     badge: "Nuevo",
     features: ["Automatización de procesos", "Roles y permisos", "Reportes en tiempo real", "Integraciones a medida"],
@@ -120,7 +120,7 @@ export const solutions: Solution[] = [
   {
     title: "Catálogos / Cartas Digitales",
     description:
-      "Catálogos autogestionables para emprendimientos y tiendas. Mostrá tus productos de forma atractiva, organizada y siempre actualizada.",
+      "Mostrá tus productos, siempre actualizados y a tu alcance.",
     icon: BookOpen,
     features: ["100% autogestionable", "Actualización en tiempo real", "Acceso por código QR", "Búsqueda y filtros"],
   },
@@ -137,21 +137,21 @@ export const processSteps: { title: string; description: string; icon: LucideIco
   {
     title: "Análisis y Diseño",
     description:
-      "Analizamos tus necesidades específicas y diseñamos una solución personalizada, alineada con tu marca y tus objetivos de negocio.",
+      "Entendemos tu negocio y diseñamos la solución.",
     icon: Lightbulb,
     tags: ["Reunión inicial", "Objetivos", "Wireframes"],
   },
   {
     title: "Desarrollo",
     description:
-      "Construimos tu solución con foco en la experiencia de usuario y la facilidad de gestión. Desarrollo ágil, transparente y con tecnología moderna.",
+      "Desarrollo ágil y transparente, con revisiones en el camino.",
     icon: Rocket,
     tags: ["Diseño a medida", "Tecnología moderna", "Revisiones"],
   },
   {
     title: "Lanzamiento y Capacitación",
     description:
-      "Lanzamos tu proyecto y te capacitamos para que gestiones el contenido de forma autónoma. Soporte continuo después del despegue.",
+      "Lo publicamos, te capacitamos y seguimos acompañándote.",
     icon: MousePointerClick,
     tags: ["Puesta online", "Capacitación", "Soporte continuo"],
   },

@@ -81,7 +81,7 @@ export default function HomePage() {
               Todo lo que tu presencia digital necesita
             </SplitHeading>
             <ScrollFillText className="font-display mt-8 max-w-4xl text-balance text-[clamp(1.35rem,2.6vw,2.15rem)] font-medium leading-[1.25] tracking-tight text-ink">
-              Un equipo, todas las piezas: diseño, desarrollo, rendimiento y posicionamiento bajo un mismo criterio técnico.
+              Un equipo, todas las piezas: diseño, desarrollo y posicionamiento.
             </ScrollFillText>
 
             <ServicesGrid />
@@ -100,8 +100,7 @@ export default function HomePage() {
               </div>
               <Reveal delay={0.15} className="lg:col-span-5">
                 <p className="text-lg text-muted-ink">
-                  Desde una landing que convierte hasta un ERP que automatiza tu operación. Elegimos el camino correcto
-                  para vos.
+                  De una landing a un ERP: elegimos lo que tu negocio necesita.
                 </p>
               </Reveal>
             </div>
@@ -125,9 +124,7 @@ export default function HomePage() {
                   Sistemas de gestión que impulsan tu operación
                 </SplitHeading>
                 <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-ink">
-                  Desarrollamos plataformas internas a medida que automatizan tareas y digitalizan procesos clave.
-                  Nuestros sistemas ayudaron a empresas a reducir hasta un 80% del tiempo operativo, mejorando su
-                  seguridad, eficiencia y rentabilidad.
+                  Plataformas a medida que automatizan tareas y ordenan tus procesos clave.
                 </p>
                 <div className="mt-9">
                   <CtaButton onClick={goToContact} variant="ink">
@@ -154,8 +151,7 @@ export default function HomePage() {
                 </SplitHeading>
               </div>
               <p className="text-lg text-muted-ink lg:col-span-5">
-                Un camino claro y transparente. Así acompañamos tu proyecto desde la primera charla hasta que estás
-                online.
+                Un camino claro, de la primera charla hasta estar online.
               </p>
             </Reveal>
 
@@ -174,7 +170,7 @@ export default function HomePage() {
                 </SplitHeading>
               </div>
               <p className="text-lg text-muted-ink lg:col-span-5">
-                Negocios de rubros muy distintos eligieron nuestras soluciones digitales para crecer.
+                Negocios de rubros muy distintos ya crecen con nosotros.
               </p>
             </Reveal>
           </div>
@@ -199,8 +195,7 @@ export default function HomePage() {
             <Reveal delay={0.25}>
               <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                 <p className="max-w-xl text-lg text-white/85 md:text-xl">
-                  Asesoría gratuita para entender qué solución necesita tu negocio. Sin complicaciones, entrega rápida
-                  y con soporte incluido.
+                  Asesoría gratuita, entrega rápida y soporte incluido.
                 </p>
                 <CtaButton onClick={goToContact} variant="light" className="shrink-0 self-start md:self-auto">
                   ¡Me interesa!
@@ -305,8 +300,7 @@ export default function HomePage() {
                 decoding="async"
               />
               <p className="mt-5 max-w-sm leading-relaxed text-white/70">
-                Desarrollo web y sistemas de gestión a medida. Transformamos la presencia digital de tu negocio con
-                tecnología moderna.
+                Desarrollo web y sistemas de gestión a medida.
               </p>
             </div>
 
