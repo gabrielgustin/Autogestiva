@@ -189,12 +189,6 @@ export const clients: Client[] = [
     tile: "#0f172a",
   },
   {
-    name: "SEA - Villada",
-    logo: "/images/clients/sea-villada.png",
-    url: "https://portalsea.com.ar/villada",
-    tile: "#ffffff",
-  },
-  {
     name: "Gimnasio Life Gym",
     logo: "/images/clients/life-gym.png",
     url: "https://gimnasiolifegym.com.ar",
@@ -257,17 +251,19 @@ export const clients: Client[] = [
     keepColor: true,
   },
   {
+    name: "SEA",
+    logo: "/images/clients/sea.png",
+    url: "https://www.portalsea.com.ar",
+    tile: "#ffffff",
+    keepColor: true,
+    tall: true,
+  },
+  {
     name: "Wavi",
     logo: "/images/clients/wavi.png",
     url: "https://somoswavi.com",
     tile: "#1c0fb5",
     keepColor: true,
-  },
-  {
-    name: "SEA - Savio",
-    logo: "/images/clients/sea-savio.png",
-    url: "https://portalsea.com.ar/savio",
-    tile: "#ffffff",
   },
   {
     name: "Santa Remera",
