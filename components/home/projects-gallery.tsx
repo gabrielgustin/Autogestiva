@@ -9,22 +9,31 @@ import { Eyebrow } from "@/components/home/primitives"
 
 /* iPhone: marco de titanio, bisel negro, isla dinámica, botones laterales y reflejo en el vidrio */
 function IPhone({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
-  // La barra de estado toma el color de la parte de arriba de la captura, para que se vea como parte de la web
-  const [bar, setBar] = useState({ bg: "#ffffff", fg: "#111111" })
+  // La barra de estado continúa la primera fila de píxeles de la captura (con sus degradés),
+  // así se ve como parte de la web y no como una franja pegada encima
+  const [bar, setBar] = useState({ bg: "#ffffff", row: "", fg: "#111111" })
   useEffect(() => {
     const img = new Image()
     img.onload = () => {
       try {
         const canvas = document.createElement("canvas")
-        canvas.width = canvas.height = 1
+        canvas.width = 64
+        canvas.height = 1
         const ctx = canvas.getContext("2d")
         if (!ctx) return
-        ctx.drawImage(img, 0, 0, img.width, Math.max(1, Math.round(img.height * 0.005)), 0, 0, 1, 1)
-        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+        ctx.drawImage(img, 0, 0, img.width, 1, 0, 0, 64, 1)
+        const data = ctx.getImageData(0, 0, 64, 1).data
+        let r = 0, g = 0, b = 0
+        for (let i = 0; i < data.length; i += 4) {
+          r += data[i]
+          g += data[i + 1]
+          b += data[i + 2]
+        }
+        ;[r, g, b] = [r, g, b].map((v) => Math.round(v / 64))
         const light = (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6
-        setBar({ bg: `rgb(${r}, ${g}, ${b})`, fg: light ? "#111111" : "#ffffff" })
+        setBar({ bg: `rgb(${r}, ${g}, ${b})`, row: canvas.toDataURL(), fg: light ? "#111111" : "#ffffff" })
       } catch {
-        /* sin color de muestra: queda la barra clara */
+        /* sin muestra: queda la barra clara */
       }
     }
     img.src = src
@@ -45,7 +54,10 @@ function IPhone({ src, alt, className = "" }: { src: string; alt: string; classN
           {/* pantalla */}
           <div
             className="relative h-full w-full overflow-hidden rounded-[12.6%/5.8%] [container-type:inline-size]"
-            style={{ backgroundColor: bar.bg }}
+            style={{
+              backgroundColor: bar.bg,
+              ...(bar.row && { backgroundImage: `url(${bar.row})`, backgroundSize: "100% 100%" }),
+            }}
           >
             {/* La web arranca debajo de la barra de estado, como en un iPhone real: la isla nunca tapa el contenido */}
             <img
@@ -219,8 +231,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
         <div>
           {brandLogo ? (
-            <h3>
-              {/* El logo reemplaza al nombre; el alt mantiene el nombre para lectores de pantalla y buscadores */}
+            <h3 className="flex h-16 items-center md:h-20">
+              {/* Franja de alto fijo: todos los logos quedan centrados sobre la misma línea. El logo reemplaza al nombre; el alt mantiene el nombre para lectores de pantalla y buscadores */}
               <img
                 src={brandLogo}
                 alt={name}
@@ -237,7 +249,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </h3>
           )}
           {description && (
-            <p className={`mt-3 hidden text-sm leading-relaxed md:line-clamp-3 md:block ${soft}`}>
+            <p className={`mt-3 hidden text-sm leading-relaxed md:line-clamp-3 md:min-h-[4.3rem] ${soft}`}>
               {description}
             </p>
           )}
