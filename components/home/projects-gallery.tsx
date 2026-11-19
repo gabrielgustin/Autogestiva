@@ -189,7 +189,7 @@ function Devices({ project }: { project: Project }) {
 
 /* ── Tarjeta de proyecto (mismo tamaño para todas) ────────────────────── */
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   const { name, url, type, description, bg, accent, dark, brandLogo, brandLogoTall } = project
   const text = dark ? "text-white" : "text-ink"
   const soft = dark ? "text-white/65" : "text-ink/65"
@@ -217,7 +217,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       {/* Alto fijo en móvil: así la zona de dispositivos mide lo mismo en todas las tarjetas */}
       <div className="relative z-10 flex h-[10.5rem] shrink-0 flex-col justify-between gap-3 p-5 md:h-auto md:w-[38%] md:p-8">
         <div className="flex items-center gap-2.5">
-          <span className={`font-mono text-xs tabular-nums ${soft}`}>{String(index + 1).padStart(2, "0")}</span>
           {type && (
             <span
               className={`rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] ${
@@ -388,8 +387,8 @@ export function ProjectsGallery() {
           ref={trackRef}
           className="mt-6 flex h-[clamp(360px,calc(100svh-300px),440px)] snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain rounded-3xl [scrollbar-width:none] md:mt-8 md:h-[clamp(380px,calc(100svh-260px),540px)] md:gap-6 [&::-webkit-scrollbar]:hidden"
         >
-          {projects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
+          {projects.map((project) => (
+            <ProjectCard key={project.name} project={project} />
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Check, Mail, MapPin, Phone } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/home/hero"
@@ -29,6 +29,27 @@ export default function HomePage() {
   const [apellido, setApellido] = useState("")
   const [consulta, setConsulta] = useState("")
   const [activeField, setActiveField] = useState<ChatField>(null)
+  const whatsappRef = useRef<HTMLAnchorElement>(null)
+  const footerBarRef = useRef<HTMLDivElement>(null)
+
+  // El botón de WhatsApp acompaña el scroll y se frena 16px arriba de la línea del copyright
+  useEffect(() => {
+    const update = () => {
+      const button = whatsappRef.current
+      const bar = footerBarRef.current
+      if (!button || !bar) return
+      const base = window.innerWidth >= 768 ? 24 : 20
+      const lift = window.innerHeight - bar.getBoundingClientRect().top + 16
+      button.style.bottom = `${Math.max(base, lift)}px`
+    }
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update)
+    return () => {
+      window.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    }
+  }, [])
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -312,7 +333,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pr-16 pt-7 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between md:pr-20">
+          <div ref={footerBarRef} className="mt-16 flex flex-col gap-3 border-t border-white/10 pr-16 pt-7 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between md:pr-20">
             <p>© {new Date().getFullYear()} Autogestiva. Todos los derechos reservados.</p>
             <a
               href={contact.adminUrl}
@@ -328,6 +349,7 @@ export default function HomePage() {
         href={`https://wa.me/${contact.whatsappNumber}?text=Hola!`}
         target="_blank"
         rel="noopener noreferrer"
+        ref={whatsappRef}
         aria-label="Contactar por WhatsApp"
         className="fixed bottom-5 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-xl shadow-green-500/30 transition-transform duration-300 hover:scale-110 hover:bg-green-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-500/40 md:bottom-6 md:right-6"
       >
