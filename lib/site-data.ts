@@ -256,6 +256,56 @@ export const clients: Client[] = [
     tile: "#fff6e8",
     keepColor: true,
   },
+  {
+    name: "Wavi",
+    logo: "/images/clients/wavi.png",
+    url: "https://somoswavi.com",
+    tile: "#1c0fb5",
+    keepColor: true,
+  },
+  {
+    name: "SEA - Savio",
+    logo: "/images/clients/sea-savio.png",
+    url: "https://portalsea.com.ar/savio",
+    tile: "#ffffff",
+  },
+  {
+    name: "Santa Remera",
+    logo: "/images/clients/santa-remera.png",
+    url: "https://www.santaremera.com.ar",
+    tile: "#fbf1e6",
+    keepColor: true,
+    tall: true,
+  },
+  {
+    name: "Rumbo",
+    logo: "/images/clients/rumbo.png",
+    url: "https://rumbo-alpha-rosy.vercel.app",
+    tile: "#ffffff",
+    keepColor: true,
+  },
+  {
+    name: "La Comanda",
+    logo: "/images/clients/la-comanda.png",
+    url: "https://lacomanda-xi.vercel.app",
+    tile: "#efe1cd",
+    keepColor: true,
+    tall: true,
+  },
+  {
+    name: "PipetLabor",
+    logo: "/images/clients/pipetlabor.png",
+    url: "https://www.pipetlabor.com.ar",
+    tile: "#ffffff",
+    keepColor: true,
+  },
+  {
+    name: "Colegio UTN",
+    logo: "/images/clients/colegio-utn.png",
+    url: "#",
+    tile: "#0b2a8c",
+    keepColor: true,
+  },
 ]
 
 export type Project = {
@@ -272,6 +322,10 @@ export type Project = {
   serviceDesktop?: string
   mobile?: string
   logo?: string
+  /** Logo PNG que reemplaza al nombre en el título de la tarjeta del home */
+  brandLogo?: string
+  /** Logos casi cuadrados necesitan más alto para leerse igual que los apaisados */
+  brandLogoTall?: boolean
   /** Colores tomados de la marca de cada cliente */
   bg: string
   accent: string
@@ -286,6 +340,7 @@ export const projects: Project[] = [
     description: "Sitio de una agencia de estrategia, contenido e influencers para marcas.",
     desktop: "/images/work/wavi.jpg",
     mobile: "/images/work/wavi-mobile.jpg",
+    brandLogo: "/images/clients/wavi.png",
     bg: "#1c0fb5",
     accent: "#ff7a1f",
     dark: true,
@@ -297,6 +352,8 @@ export const projects: Project[] = [
     description: "Tienda online con reserva y venta de pasajes de forma autogestionable.",
     desktop: "/images/work/jarabus-web.jpg",
     mobile: "/images/work/jarabus-mobile.jpg",
+    brandLogo: "/images/clients/jarabus.png",
+    brandLogoTall: true,
     bg: "#100506",
     accent: "#e02424",
     dark: true,
@@ -319,6 +376,7 @@ export const projects: Project[] = [
     desktopUrl: "posty.com.ar",
     desktop: "/images/work/posty.jpg",
     mobile: "/images/work/posty-mobile.jpg",
+    brandLogo: "/images/clients/posty.png",
     bg: "#fff6e8",
     accent: "#ff6b4a",
     dark: false,
@@ -330,6 +388,8 @@ export const projects: Project[] = [
     description: "Portal de cursos extracurriculares de tecnología y oficios para escuelas, con un sitio propio para cada colegio.",
     desktop: "/images/work/sea.jpg",
     mobile: "/images/work/sea-mobile.jpg",
+    brandLogo: "/images/clients/sea.png",
+    brandLogoTall: true,
     bg: "#e8f0fb",
     accent: "#ffc531",
     dark: false,
@@ -352,6 +412,7 @@ export const projects: Project[] = [
     desktop: "/images/work/la-comanda-web.jpg",
     serviceDesktop: "/images/work/la-comanda-carta.jpg",
     mobile: "/images/work/la-comanda-mobile.jpg",
+    brandLogo: "/images/clients/la-comanda.png",
     bg: "#efe1cd",
     accent: "#4a2c20",
     dark: false,
@@ -374,6 +435,7 @@ export const projects: Project[] = [
     description: "Catálogo de autos y motos con stock, financiación y contacto directo por WhatsApp.",
     desktop: "/images/work/federico-arce.jpg",
     mobile: "/images/work/federico-arce-mobile.jpg",
+    brandLogo: "/images/clients/fa-automotores.png",
     bg: "#0a0a0a",
     accent: "#e5332a",
     dark: true,
@@ -385,6 +447,7 @@ export const projects: Project[] = [
     description: "Sitio de una red de estudios jurídicos con especialidades y novedades legales.",
     desktop: "/images/work/cambel.jpg",
     mobile: "/images/work/cambel-mobile.jpg",
+    brandLogo: "/images/clients/cambel.png",
     bg: "#0a2b40",
     accent: "#eb654d",
     dark: true,
@@ -396,6 +459,8 @@ export const projects: Project[] = [
     description: "Remeras y buzos personalizados con diseñador en vivo y precio al instante.",
     desktop: "/images/work/santa-remera.jpg",
     mobile: "/images/work/santa-remera-mobile.jpg",
+    brandLogo: "/images/clients/santa-remera.png",
+    brandLogoTall: true,
     bg: "#fbf1e6",
     accent: "#e86a2c",
     dark: false,
@@ -407,6 +472,7 @@ export const projects: Project[] = [
     description: "Sitio de un espacio de robótica y programación para chicos, con programas, horarios e inscripción.",
     desktop: "/images/work/zonabot.jpg",
     mobile: "/images/work/zonabot-mobile.jpg",
+    brandLogo: "/images/clients/zonabot.png",
     bg: "#f5d9a8",
     accent: "#e8792b",
     dark: false,
@@ -461,6 +527,7 @@ export const projects: Project[] = [
     description: "Buscador de viajes por rango de fechas: compara vuelos, micros, paquetes y alojamientos.",
     desktop: "/images/work/rumbo.jpg",
     mobile: "/images/work/rumbo-mobile.jpg",
+    brandLogo: "/images/clients/rumbo-white.png",
     bg: "#0e6670",
     accent: "#ff7a45",
     dark: true,

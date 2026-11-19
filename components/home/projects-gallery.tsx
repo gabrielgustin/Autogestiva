@@ -9,6 +9,27 @@ import { Eyebrow } from "@/components/home/primitives"
 
 /* iPhone: marco de titanio, bisel negro, isla dinámica, botones laterales y reflejo en el vidrio */
 function IPhone({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  // La barra de estado toma el color de la parte de arriba de la captura, para que se vea como parte de la web
+  const [bar, setBar] = useState({ bg: "#ffffff", fg: "#111111" })
+  useEffect(() => {
+    const img = new Image()
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas")
+        canvas.width = canvas.height = 1
+        const ctx = canvas.getContext("2d")
+        if (!ctx) return
+        ctx.drawImage(img, 0, 0, img.width, Math.max(1, Math.round(img.height * 0.005)), 0, 0, 1, 1)
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+        const light = (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6
+        setBar({ bg: `rgb(${r}, ${g}, ${b})`, fg: light ? "#111111" : "#ffffff" })
+      } catch {
+        /* sin color de muestra: queda la barra clara */
+      }
+    }
+    img.src = src
+  }, [src])
+
   return (
     <div className={`relative aspect-[9/19.5] ${className}`}>
       {/* botones laterales */}
@@ -22,8 +43,41 @@ function IPhone({ src, alt, className = "" }: { src: string; alt: string; classN
         {/* bisel */}
         <div className="h-full w-full rounded-[15.4%/7.1%] bg-black p-[2.4%]">
           {/* pantalla */}
-          <div className="relative h-full w-full overflow-hidden rounded-[12.6%/5.8%] bg-white">
-            <img src={src} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+          <div
+            className="relative h-full w-full overflow-hidden rounded-[12.6%/5.8%] [container-type:inline-size]"
+            style={{ backgroundColor: bar.bg }}
+          >
+            {/* La web arranca debajo de la barra de estado, como en un iPhone real: la isla nunca tapa el contenido */}
+            <img
+              src={src}
+              alt={alt}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-x-0 bottom-0 top-[6.4%] h-[93.6%] w-full object-cover object-top"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 flex h-[6.4%] items-center justify-between px-[9%] font-semibold tabular-nums"
+              style={{ color: bar.fg, fontSize: "4.6cqw", fontFamily: "-apple-system, 'SF Pro Text', system-ui, sans-serif" }}
+            >
+              <span>9:41</span>
+              <span className="flex items-center gap-[1.6cqw]">
+                <svg viewBox="0 0 18 12" className="h-[3.4cqw]" fill="currentColor">
+                  <rect x="0" y="8" width="3" height="4" rx="0.8" />
+                  <rect x="5" y="5.5" width="3" height="6.5" rx="0.8" />
+                  <rect x="10" y="3" width="3" height="9" rx="0.8" />
+                  <rect x="15" y="0" width="3" height="12" rx="0.8" />
+                </svg>
+                <svg viewBox="0 0 17 12" className="h-[3.4cqw]" fill="currentColor">
+                  <path d="M8.5 2.3c2.3 0 4.4.9 6 2.4l1-1.1A10.1 10.1 0 0 0 8.5.8 10.1 10.1 0 0 0 1.5 3.6l1 1.1a8.6 8.6 0 0 1 6-2.4Zm0 3.5c1.4 0 2.6.5 3.600 1.400l1-1.100a7 7 0 0 0-9.200 0l1 1.100c1-.9 2.200-1.400 3.600-1.400Zm0 3.500c.7 0 1.300.3 1.800.7L8.500 12 6.700 10c.5-.4 1.100-.7 1.800-.7Z" />
+                </svg>
+                <svg viewBox="0 0 27 12" className="h-[3.4cqw]" fill="none">
+                  <rect x="0.5" y="0.5" width="23" height="11" rx="3.200" stroke="currentColor" opacity="0.4" />
+                  <rect x="2" y="2" width="20" height="8" rx="2" fill="currentColor" />
+                  <path d="M25 4v4c.8-.3 1.500-1.100 1.500-2S25.800 4.300 25 4Z" fill="currentColor" opacity="0.5" />
+                </svg>
+              </span>
+            </div>
             <span className="absolute left-1/2 top-[1.9%] h-[2.9%] w-[31%] -translate-x-1/2 rounded-full bg-black" />
             <span className="absolute bottom-[1.4%] left-1/2 h-[0.5%] w-[34%] -translate-x-1/2 rounded-full bg-black/70" />
             <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/25 via-white/0 to-white/0 mix-blend-soft-light" />
@@ -124,7 +178,7 @@ function Devices({ project }: { project: Project }) {
 /* ── Tarjeta de proyecto (mismo tamaño para todas) ────────────────────── */
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const { name, url, type, description, bg, accent, dark } = project
+  const { name, url, type, description, bg, accent, dark, brandLogo, brandLogoTall } = project
   const text = dark ? "text-white" : "text-ink"
   const soft = dark ? "text-white/65" : "text-ink/65"
   const Tag = url ? "a" : "div"
@@ -164,9 +218,24 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
 
         <div>
-          <h3 className="font-display line-clamp-2 text-balance text-2xl font-semibold leading-[1.04] tracking-tight md:line-clamp-none md:text-[2rem] xl:text-[2.2rem]">
-            {name}
-          </h3>
+          {brandLogo ? (
+            <h3>
+              {/* El logo reemplaza al nombre; el alt mantiene el nombre para lectores de pantalla y buscadores */}
+              <img
+                src={brandLogo}
+                alt={name}
+                loading="lazy"
+                decoding="async"
+                className={`w-auto max-w-[85%] object-contain object-left drop-shadow-[0_2px_10px_rgba(0,0,0,0.12)] ${
+                  brandLogoTall ? "h-16 md:h-20" : "h-11 md:h-14"
+                }`}
+              />
+            </h3>
+          ) : (
+            <h3 className="font-display line-clamp-2 text-balance text-2xl font-semibold leading-[1.04] tracking-tight md:line-clamp-none md:text-[2rem] xl:text-[2.2rem]">
+              {name}
+            </h3>
+          )}
           {description && (
             <p className={`mt-3 hidden text-sm leading-relaxed md:line-clamp-3 md:block ${soft}`}>
               {description}
