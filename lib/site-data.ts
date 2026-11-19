@@ -294,6 +294,7 @@ export const clients: Client[] = [
     url: "https://www.pipetlabor.com.ar",
     tile: "#ffffff",
     keepColor: true,
+    tall: true,
   },
   {
     name: "Colegio UTN",

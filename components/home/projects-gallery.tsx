@@ -362,7 +362,7 @@ export function ProjectsGallery() {
       <div className="mx-auto w-full max-w-[1320px] px-5 md:px-8">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <Eyebrow index="01">Portfolio</Eyebrow>
+            <Eyebrow>Portfolio</Eyebrow>
             <h2 className="font-display h-section mt-3">Últimos proyectos</h2>
           </div>
           <div className="flex shrink-0 items-center gap-3 pb-1.5">

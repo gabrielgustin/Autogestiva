@@ -104,17 +104,14 @@ export function Reveal({
 }
 
 export function Eyebrow({
-  index,
   children,
   inverted = false,
 }: {
-  index?: string
   children: React.ReactNode
   inverted?: boolean
 }) {
   return (
     <p className={`eyebrow flex items-center gap-3 ${inverted ? "text-white/60" : "text-muted-ink"}`}>
-      {index && <span className="text-orange-700">{index}</span>}
       <span className={`h-px w-8 ${inverted ? "bg-white/30" : "bg-ink/25"}`} />
       {children}
     </p>

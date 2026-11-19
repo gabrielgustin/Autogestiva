@@ -8,11 +8,11 @@ import { Hero } from "@/components/home/hero"
 import { ProjectsGallery } from "@/components/home/projects-gallery"
 import { ProcessTimeline } from "@/components/home/process-timeline"
 import { ClientsScroller } from "@/components/home/clients-scroller"
-import { DashboardMockup } from "@/components/home/mockups"
 import { ChatPreview, type ChatField } from "@/components/home/chat-preview"
-import { ErpFeatures, ServicesGrid } from "@/components/home/services-grid"
+import { ServicesGrid } from "@/components/home/services-grid"
+import { StatsSection } from "@/components/home/stats-section"
 import { SolutionsDeck } from "@/components/home/solutions-deck"
-import { ScrollFillText, SplitHeading, Spotlight, Tilt } from "@/components/home/effects"
+import { ScrollFillText, SplitHeading, Spotlight } from "@/components/home/effects"
 import { CtaButton, Eyebrow, Reveal, WhatsAppIcon, scrollToSection, useOnScreen } from "@/components/home/primitives"
 import {
   contact,
@@ -76,7 +76,7 @@ export default function HomePage() {
         {/* ── Services ─────────────────────────────────────────── */}
         <section id="servicios" className="scroll-mt-20 py-24 md:py-32">
           <div className={container}>
-            <Eyebrow index="02">Servicios</Eyebrow>
+            <Eyebrow>Servicios</Eyebrow>
             <SplitHeading className="font-display h-section mt-5 max-w-3xl text-balance">
               Todo lo que tu presencia digital necesita
             </SplitHeading>
@@ -93,7 +93,7 @@ export default function HomePage() {
           <div className={container}>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
-                <Eyebrow index="03">Soluciones</Eyebrow>
+                <Eyebrow>Soluciones</Eyebrow>
                 <SplitHeading className="font-display h-section mt-5 text-balance">
                   Soluciones a medida para cada tipo de negocio
                 </SplitHeading>
@@ -109,43 +109,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Sistemas de gestión (ERP) ────────────────────────── */}
-        <section id="sistemas" className="scroll-mt-20 border-y border-line bg-white py-24 md:py-32">
-          <div className={container}>
-            <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
-              <Reveal className="order-2 pb-8 lg:order-1">
-                <Tilt>
-                  <DashboardMockup />
-                </Tilt>
-              </Reveal>
-              <Reveal delay={0.1} className="order-1 lg:order-2">
-                <Eyebrow index="04">ERP / Sistemas de gestión</Eyebrow>
-                <SplitHeading className="font-display h-section mt-5 text-balance">
-                  Sistemas de gestión que impulsan tu operación
-                </SplitHeading>
-                <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-ink">
-                  Plataformas a medida que automatizan tareas y ordenan tus procesos clave.
-                </p>
-                <div className="mt-9">
-                  <CtaButton onClick={goToContact} variant="ink">
-                    Contactanos
-                  </CtaButton>
-                </div>
-              </Reveal>
-            </div>
-
-            <Reveal delay={0.1} className="mt-20">
-              <ErpFeatures />
-            </Reveal>
-          </div>
-        </section>
+        {/* ── Números y curiosidades ───────────────────────────── */}
+        <StatsSection />
 
         {/* ── Process ──────────────────────────────────────────── */}
         <section id="como-funciona" className="scroll-mt-20 py-24 md:py-32">
           <div className={container}>
             <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
-                <Eyebrow index="05">Proceso</Eyebrow>
+                <Eyebrow>Proceso</Eyebrow>
                 <SplitHeading className="font-display h-section mt-5 text-balance">
                   De la idea al lanzamiento en 3 pasos
                 </SplitHeading>
@@ -164,7 +136,7 @@ export default function HomePage() {
           <div className={container}>
             <Reveal className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
-                <Eyebrow index="06">Clientes</Eyebrow>
+                <Eyebrow>Clientes</Eyebrow>
                 <SplitHeading className="font-display h-section mt-5 text-balance">
                   Marcas que ya confían en nosotros
                 </SplitHeading>
@@ -209,7 +181,7 @@ export default function HomePage() {
         <section id="contacto" className="scroll-mt-20 py-24 md:py-32">
           <div className={`${container} grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20`}>
             <Reveal className="flex h-full flex-col">
-              <Eyebrow index="07">Contacto</Eyebrow>
+              <Eyebrow>Contacto</Eyebrow>
               <SplitHeading className="font-display h-section mt-5 text-balance">Hablemos de tu proyecto</SplitHeading>
               {/* En pantallas grandes, el mensaje se ve armarse mientras se completa el formulario */}
               <div className="mt-12 hidden lg:mt-auto lg:block lg:pt-12">

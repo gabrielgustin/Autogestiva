@@ -99,7 +99,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-20 md:py-28">
           <div className={container}>
             <Reveal>
-              <Eyebrow index="01">Qué incluye</Eyebrow>
+              <Eyebrow>Qué incluye</Eyebrow>
               <h2 className="font-display h-section mt-5 max-w-3xl text-balance">Todo lo que necesitás, resuelto</h2>
             </Reveal>
             <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
@@ -117,7 +117,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="border-y border-line bg-white py-20 md:py-28">
           <div className={`${container} grid gap-16 lg:grid-cols-2`}>
             <div>
-              <Eyebrow index="02">Para quién es</Eyebrow>
+              <Eyebrow>Para quién es</Eyebrow>
               <h2 className="font-display h-section mt-5 text-balance">Pensado para tu tipo de negocio</h2>
               <ul className="mt-8 space-y-4">
                 {service.forWho.map((item) => (
@@ -129,7 +129,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </ul>
             </div>
             <div>
-              <Eyebrow index="03">Cómo trabajamos</Eyebrow>
+              <Eyebrow>Cómo trabajamos</Eyebrow>
               <h2 className="font-display h-section mt-5 text-balance">De la idea al lanzamiento en 3 pasos</h2>
               <ol className="mt-8 space-y-6">
                 {service.steps.map((step, i) => (
@@ -150,7 +150,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         {shown.length > 0 && (
           <section className="py-20 md:py-28">
             <div className={container}>
-              <Eyebrow index="04">Trabajos reales</Eyebrow>
+              <Eyebrow>Trabajos reales</Eyebrow>
               <h2 className="font-display h-section mt-5 text-balance">Proyectos que hicimos</h2>
               <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {shown.map((p) => (
@@ -179,7 +179,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         {/* Preguntas frecuentes */}
         <section id="preguntas" className="border-t border-line bg-white py-20 md:py-28">
           <div className={`${container} max-w-4xl`}>
-            <Eyebrow index="05">Preguntas frecuentes</Eyebrow>
+            <Eyebrow>Preguntas frecuentes</Eyebrow>
             <h2 className="font-display h-section mt-5 text-balance">Lo que más nos preguntan</h2>
             <div className="mt-10 divide-y divide-line border-y border-line">
               {service.faqs.map((f) => (
