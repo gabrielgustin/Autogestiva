@@ -10,7 +10,7 @@ const stats = [
   { value: projects.length, label: "proyectos publicados" },
   { value: projects.filter((p) => p.url).length, label: "sitios online que podés visitar hoy" },
   { value: clients.length, label: "marcas que confían en nosotros" },
-  { value: new Set(projects.map((p) => p.type).filter(Boolean)).size, label: "tipos de solución distintos" },
+  { value: new Set(projects.map((p) => p.type).filter(Boolean)).size, label: "soluciones distintas" },
 ]
 
 /* Cuenta de 0 al valor cuando entra en pantalla (sin animación si la persona la desactivó) */

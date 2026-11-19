@@ -70,7 +70,7 @@ export const services: { icon: LucideIcon; title: string; description: string }[
     icon: Search,
     title: "Optimización SEO",
     description:
-      "Más visibles en Google, con mejor tráfico.",
+      "Más visibilidad en Google y tráfico de calidad.",
   },
   {
     icon: Smartphone,
@@ -105,7 +105,7 @@ export const solutions: Solution[] = [
   {
     title: "Webs Institucionales",
     description:
-      "Presentá tu empresa con presencia profesional y confianza.",
+      "Presentá tu empresa con una imagen profesional y confiable.",
     icon: Building2,
     features: ["Presencia profesional", "Secciones institucionales", "Información de contacto", "Diseño a tu marca"],
   },
@@ -120,7 +120,7 @@ export const solutions: Solution[] = [
   {
     title: "Catálogos / Cartas Digitales",
     description:
-      "Mostrá tus productos, siempre actualizados y a tu alcance.",
+      "Mostrá tus productos de forma clara y siempre actualizada.",
     icon: BookOpen,
     features: ["100% autogestionable", "Actualización en tiempo real", "Acceso por código QR", "Búsqueda y filtros"],
   },
@@ -382,7 +382,7 @@ export const projects: Project[] = [
     name: "SEA",
     url: "https://www.portalsea.com.ar",
     type: "Página web",
-    description: "Portal de cursos de tecnología y oficios para escuelas, con un sitio por colegio.",
+    description: "Portal de cursos para escuelas, con un sitio propio por colegio.",
     desktop: "/images/work/sea.jpg",
     mobile: "/images/work/sea-mobile.jpg",
     brandLogo: "/images/clients/sea.png",
@@ -429,7 +429,7 @@ export const projects: Project[] = [
     name: "FA Automotores",
     url: "https://automotores-federicoarce.vercel.app",
     type: "Página web",
-    description: "Catálogo de autos y motos con stock, financiación y WhatsApp.",
+    description: "Autos y motos con stock, financiación y contacto por WhatsApp.",
     desktop: "/images/work/federico-arce.jpg",
     mobile: "/images/work/federico-arce-mobile.jpg",
     brandLogo: "/images/clients/fa-automotores.png",
@@ -453,7 +453,7 @@ export const projects: Project[] = [
     name: "Santa Remera",
     url: "https://www.santaremera.com.ar",
     type: "Página web",
-    description: "Remeras y buzos personalizados con diseñador en vivo y precio al instante.",
+    description: "Remeras y buzos a medida, con diseñador en vivo y precio al instante.",
     desktop: "/images/work/santa-remera.jpg",
     mobile: "/images/work/santa-remera-mobile.jpg",
     brandLogo: "/images/clients/santa-remera.png",
